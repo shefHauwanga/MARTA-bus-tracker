@@ -6,7 +6,6 @@ var ticksInASecond = 1000; // A second in milliseconds.
 var updateInterval = 1 * ticksInASecond;
 var createTime = Date.now().toString();
 
-client.setMaxListeners(50);
 function updateBusData() {
     restRequest.get(martaDataURI).on('complete', function(data) {
         data.forEach(function(busInfo) {
