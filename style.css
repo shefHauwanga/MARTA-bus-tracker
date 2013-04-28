@@ -1,0 +1,38 @@
+#map-canvas { 
+    height: 100%;
+    width: 100%;
+}
+
+#un_peu_tard{
+    color: #E4C126;
+}
+
+#trop_tard{
+    color: #D80821;
+}
+
+#parfait{
+    color: #07B418;
+}
+
+html { 
+    height: 100%; 
+}
+
+body { 
+    height: 100%; 
+    margin: 0; 
+    padding: 0;
+}
+
+#about { 
+    z-index: 9000; 
+    position: absolute; 
+    right: 25px; 
+    top: 60px; 
+    background: #eee; 
+    font-family: sans-serif; 
+    width: 300px; 
+    padding: 1em; 
+    opacity: 0.85;
+}
