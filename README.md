@@ -1,4 +1,4 @@
 MARTA-bus-tracker
 =================
 
-A live map of Atlanta's main Bus System.
+A live map of Atlanta's main bus system, MARTA.

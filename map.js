@@ -21,19 +21,22 @@ function initialize() {
 function initBus(busData) {
     var busPosition = new google.maps.LatLng(busData.latitude, busData.longitude);
     var image;
-    if(busData.adherence > 0){
-        if(busData.adherence <= 2){
+    if(busData.adherence < 0){
+        if(busData.adherence >= -2)
             image = 'images/yellow_bus.png';
-        } else {
+        else 
             image = 'images/red_bus.png';
-        }
     } else {
-        image = 'images/green_bus.png';
+        if(busData.adherence > 0)
+            image = 'images/blue_bus.png';
+        else
+            image = 'images/green_bus.png';
     }
     var busMarker = new google.maps.Marker({
         position: busPosition,
         nextStop: busData.nextStop, //So a time point isn't just a stop, but
         routeNumber: busData.route,
+        trip: busData.trip,
         lateness: busData.adherence,
         busDirection: busData.direction,
         icon: image,
@@ -45,13 +48,16 @@ function initBus(busData) {
     google.maps.event.addListener(busMarker, 'mouseover', function() {
         var text = '<div id=\"bus_data\">';
         text += "This is bus #" + busMarker.id + " on route #" + busMarker.routeNumber + "<br />";
-        if(parseInt(busMarker.lateness) > 0){
-            if(parseInt(busMarker.lateness) <= 2)
-                text += "<span id=\"un_peu_tard\">This bus is running " + busMarker.lateness + ' minutes late.</span><br />';
+        if(parseInt(busMarker.lateness) < 0){
+            if(parseInt(busMarker.lateness) >= -2)
+                text += "<span id=\"un_peu_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minute(s) late.</span><br />';
             else
-                text += "<span id=\"trop_tard\">This bus is running " + busMarker.lateness + ' minutes late.</span><br />';
+                text += "<span id=\"trop_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minutes late.</span><br />';
         } else {
-            text += '<span id="parfait">This bus is running on time</span>.<br />';
+            if(parseInt(busMarker.lateness) > 0) 
+                text += '<span id="tres_tot">This bus is running ' + busMarker.lateness + ' minute(s) early</span>.<br />';
+            else
+                text += '<span id="parfait">This bus is running on time</span>.<br />';
         }
         text += 'Next stop: ' + busMarker.nextStop + '.<br />';
         text += '</div>';
@@ -104,14 +110,16 @@ function updateBuses(){
                     busCollection[obj.id].busDirection = obj.direction;
                     busCollection[obj.id].modDate = Date.now();
                     busCollection[obj.id].icon = 'yellow_bus.png';
-                    if(obj.adherence > 0){
-                        if(obj.adherence <= 2){
+                    if(obj.adherence < 0){
+                        if(obj.adherence >= -2)
                             busCollection[obj.id].icon = 'images/yellow_bus.png';
-                        } else {
+                        else 
                             busCollection[obj.id].icon = 'images/red_bus.png';
-                        }
                     } else {
-                        busCollection[obj.id].icon = 'images/green_bus.png';
+                        if(obj.adherence > 0)
+                            busCollection[obj.id].icon = 'images/blue_bus.png';
+                        else
+                            busCollection[obj.id].icon = 'images/green_bus.png';
                     }
                 }
             });

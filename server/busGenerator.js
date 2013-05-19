@@ -4,11 +4,10 @@ var client = redis.createClient();
 var martaDataURI = "http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetAllBus";
 var ticksInASecond = 1000; // A second in milliseconds.
 var updateInterval = 1 * ticksInASecond;
-var createTime = Date.now().toString();
 
-client.setMaxListeners(50);
 function updateBusData() {
     restRequest.get(martaDataURI).on('complete', function(data) {
+        var createTime = Date.now().toString();
         data.forEach(function(busInfo) {
             client.get(busInfo.VEHICLE, function(err, reply) {
                 if(reply == null) {
@@ -20,6 +19,7 @@ function updateBusData() {
                         direction: busInfo.DIRECTION,
                         nextStop: busInfo.TIMEPOINT,
                         adherence: busInfo.ADHERENCE,
+                        trip: busInfo.TRIPID,
                         creationTime: createTime
                     };
                 } else {
@@ -42,6 +42,9 @@ function updateBusData() {
 
                         if(busInfo.TIMEPOINT != busData.nextStop)
                             busData.nextStop = busInfo.TIMEPOINT;
+
+                        if(busInfo.TRIPID != busData.trip)
+                            busData.trip = busInfo.TRIPID;
                     }
                 }
                 if(busData != null)
