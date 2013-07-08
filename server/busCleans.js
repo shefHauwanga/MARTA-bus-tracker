@@ -5,7 +5,7 @@ var ticksPerSecond = 1000;
 var updateInterval = 1 * ticksPerSecond;
 
 function get_type(thing){
-    if(thing===null)
+    if(thing === null)
         return "[object Null]"; // special case
     return Object.prototype.toString.call(thing);
 }

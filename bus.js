@@ -38,7 +38,7 @@ google.maps.Marker.prototype.moveAnimation = function(toLocation) {
     this.motion = "moving";
     move = function(marker, latLngs, index, delay) {
         marker.setPosition(latLngs[index]);
-        if(index != latLngs.length - 1) {
+        if(index !== latLngs.length - 1) {
             // Next position on the map for
             // the markers
             setTimeout(function() {

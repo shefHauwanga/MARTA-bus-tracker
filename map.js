@@ -95,12 +95,12 @@ function updateBuses(){
         "type": "GET",
         "success": function (response) {
             $.each(response, function(index, obj) {
-                if(busCollection[obj.id] == null) {
+                if(busCollection[obj.id] === null) {
                     initBus(obj);
                 } else {
-                    if(busCollection[obj.id].motion == "static"){
-                        if((obj.latitude != busCollection[obj.id].getPosition().lat().toString()) ||
-                           (obj.longitude != busCollection[obj.id].getPosition().lng().toString())) {
+                    if(busCollection[obj.id].motion === "static"){
+                        if((obj.latitude !== busCollection[obj.id].getPosition().lat().toString()) ||
+                           (obj.longitude !== busCollection[obj.id].getPosition().lng().toString())) {
                             busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
                         } 
                     }
