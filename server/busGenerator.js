@@ -10,7 +10,7 @@ function updateBusData() {
         var createTime = Date.now().toString();
         data.forEach(function(busInfo) {
             client.get(busInfo.VEHICLE, function(err, reply) {
-                if(reply === undefined) {
+                if(reply === null) {
                     var busData = {
                         id: busInfo.VEHICLE,
                         route: busInfo.ROUTE,
