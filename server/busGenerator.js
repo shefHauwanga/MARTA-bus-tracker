@@ -6,7 +6,7 @@ var ticksInASecond = 1000; // A second in milliseconds.
 var updateInterval = 1 * ticksInASecond;
 
 function updateBusData() {
-    restRequest.get(martaDataURI).on('complete', function(data) {
+    restRequest.get(martaDataURI).on('success', function(data) {
         var createTime = Date.now().toString();
         data.forEach(function(busInfo) {
             client.get(busInfo.VEHICLE, function(err, reply) {
@@ -52,8 +52,8 @@ function updateBusData() {
             });
         });
     });
+    setTimeout(function() {
+        updateBusData();
+    }, updateInterval);
 }
-
-setInterval(function() {
-    updateBusData();
-}, updateInterval);
+updateBusData();
