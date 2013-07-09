@@ -51,9 +51,9 @@ function updateBusData() {
                     client.set(busData.id, JSON.stringify(busData));
             });
         });
+        setTimeout(function() {
+            updateBusData();
+        }, updateInterval);
     });
-    setTimeout(function() {
-        updateBusData();
-    }, updateInterval);
 }
 updateBusData();
