@@ -71,24 +71,7 @@ function initBus(busData) {
     busCollection[busData.id] = busMarker;
 }
 
-function queueBuses() {
-    $.ajax({
-        "url": "helper.php",
-        "dataType": "json", 
-        "type": "GET",
-        "success": function (response) {
-            $.each(response, function(index, obj) {
-                initBus(obj);
-            });
-            
-        },
-        "error": function(xhr, ajaxOptions, thrownError) {
-            $("#about").html("<div id=\"init_problem\">There is a problem with initalization.<br /><br />" + xhr.status + "</div>");
-        }
-    });
-}
-
-function updateBuses(){
+function queueBuses(){
     $.ajax({
         "url": "helper.php",
         "dataType": "json", 
@@ -142,7 +125,7 @@ function cleanseBuses() {
 }
 
 setInterval(function() {
-    updateBuses();
+    queueBuses();
 }, updateInterval);
 
 setInterval(function() {
