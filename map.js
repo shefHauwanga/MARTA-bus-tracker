@@ -41,7 +41,6 @@ function initBus(busData) {
         busDirection: busData.direction,
         icon: image,
         id: busData.id,
-        motion: "static",
         map: atlMap 
     });
 
@@ -81,12 +80,10 @@ function queueBuses(){
                 if(busCollection[obj.id] === null) {
                     initBus(obj);
                 } else {
-                    if(busCollection[obj.id].motion === "static"){
-                        if((obj.latitude !== busCollection[obj.id].getPosition().lat().toString()) ||
-                           (obj.longitude !== busCollection[obj.id].getPosition().lng().toString())) {
-                            busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
-                        } 
-                    }
+                   if((obj.latitude !== busCollection[obj.id].getPosition().lat().toString()) ||
+                      (obj.longitude !== busCollection[obj.id].getPosition().lng().toString())) {
+                       busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
+                   } 
                     busCollection[obj.id].nextStop = obj.nextStop;
                     busCollection[obj.id].routeNumber = obj.route;
                     busCollection[obj.id].lateness = obj.adherence;
