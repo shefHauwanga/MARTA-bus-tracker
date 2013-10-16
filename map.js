@@ -77,7 +77,7 @@ function queueBuses(){
         "type": "GET",
         "success": function (response) {
             $.each(response, function(index, obj) {
-                if(busCollection[obj.id] === null) {
+                if(busCollection[obj.id] === undefined) {
                     initBus(obj);
                 } else {
                    if((obj.latitude !== busCollection[obj.id].getPosition().lat().toString()) ||
