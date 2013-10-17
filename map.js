@@ -20,6 +20,9 @@ function initialize() {
     queueBuses();
 }
 
+/*
+ Creates a new bus object.
+ */
 function initBus(busData) {
     var busPosition = new google.maps.LatLng(busData.latitude, busData.longitude);
     var image;
@@ -37,6 +40,7 @@ function initBus(busData) {
     }
 
     var busMarker = new google.maps.Marker({
+        motion: "static",
         position: busPosition,
         nextStop: busData.nextStop, //So a time point isn't just a stop, but
         routeNumber: busData.route,
@@ -87,10 +91,12 @@ function queueBuses(){
                 if(busCollection[obj.id] === undefined) {
                     initBus(obj);
                 } else {
-                   if((obj.latitude !== busCollection[obj.id].getPosition().lat().toString()) ||
-                      (obj.longitude !== busCollection[obj.id].getPosition().lng().toString())) {
-                       busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
-                   } 
+                   if(busCollection[obj.id].motion === "static"){
+                      if((obj.latitude !== busCollection[obj.id].getPosition().lat().toString()) ||
+                         (obj.longitude !== busCollection[obj.id].getPosition().lng().toString())) {
+                          busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
+                      } 
+                   }
 
                     busCollection[obj.id].nextStop = obj.nextStop;
                     busCollection[obj.id].routeNumber = obj.route;
