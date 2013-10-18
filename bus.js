@@ -1,16 +1,16 @@
-// Checks to see if the bus has moved
-// more than a minimum distance.
-function lessThanMinimumDist(from, to) {
-    var checkFun = function(start, finish){
-        return (parseFloat(Math.abs(start - finish)) < 0.001);
-    }
-    return (checkFun(from.getPosition().lat(), to.lat()) &&
-            checkFun(from.getPosition().lng(), to.lng()));
-}
-
 // Based on Tina CG Hoehr's marker
 // movement hack: http://stackoverflow.com/a/10906464
 google.maps.Marker.prototype.moveAnimation = function(toLocation) {
+    // Checks to see if the bus has moved
+    // more than a minimum distance.
+    var lessThanMinimumDist = function (from, to) {
+        var checkFun = function(start, finish){
+            return (parseFloat(Math.abs(start - finish)) < 0.001);
+        }
+        return (checkFun(from.getPosition().lat(), to.lat()) &&
+                checkFun(from.getPosition().lng(), to.lng()));
+    }
+
 
     if(lessThanMinimumDist(this, toLocation))
         return;
