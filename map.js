@@ -25,7 +25,7 @@ MapObject.initialize = function () {
 /*
  Creates a new bus object.
  */
-function initBus(busData) {
+MapObject.initBus = function (busData) {
     var busPosition = new google.maps.LatLng(busData.latitude, busData.longitude);
     var image;
 
@@ -51,7 +51,7 @@ function initBus(busData) {
         busDirection: busData.direction,
         icon: image,
         id: busData.id,
-        map: atlMap 
+        map: this.atlMap 
     });
 
     google.maps.event.addListener(busMarker, 'mouseover', function() {
@@ -80,7 +80,7 @@ function initBus(busData) {
         $("#about").html("This is a live map of the buses for Atlanta's MARTA system.");
     });
 
-    busCollection[busData.id] = busMarker;
+    this.busCollection[busData.id] = busMarker;
 }
 
 function queueBuses(){
