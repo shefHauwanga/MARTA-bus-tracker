@@ -96,12 +96,12 @@ MapObject.queueBuses = function (){
                 if(that.busCollection[obj.id] === undefined) {
                     that.initBus(obj);
                 } else {
-                   if(that.busCollection[obj.id].motion === "static"){
-                      if((obj.latitude !== that.busCollection[obj.id].getPosition().lat().toString()) ||
-                         (obj.longitude !== that.busCollection[obj.id].getPosition().lng().toString())) {
-                          that.busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
-                      } 
-                   }
+                    if(that.busCollection[obj.id].motion === "static"){
+                        if((obj.latitude !== that.busCollection[obj.id].getPosition().lat().toString()) ||
+                          (obj.longitude !== that.busCollection[obj.id].getPosition().lng().toString())) {
+                            that.busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
+                        } 
+                    }
 
                     that.busCollection[obj.id].nextStop = obj.nextStop;
                     that.busCollection[obj.id].routeNumber = obj.route;
