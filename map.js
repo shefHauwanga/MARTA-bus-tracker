@@ -1,12 +1,12 @@
 var MapObject = {
     atlanta: new google.maps.LatLng(33.775723, -84.388733),
     busCollection: {},
-    atlMap,
+    atlMap: null,
     ticksPerSecond: 1000,
     ticksPerMinutes: 60,
-    updateInterval: ticksPerSecond,
-    cleanseInterval: ticksPerSecond * ticksPerMinutes * 10,
-    maxAcceptableAge: ticksPerSecond * ticksPerMinutes * 5
+    updateInterval: this.ticksPerSecond,
+    cleanseInterval: this.ticksPerSecond * this.ticksPerMinutes * 10,
+    maxAcceptableAge: this.ticksPerSecond * this.ticksPerMinutes * 5
 };
 
 MapObject.initialize = function () {
@@ -28,6 +28,7 @@ MapObject.initialize = function () {
 MapObject.initBus = function (busData) {
     var busPosition = new google.maps.LatLng(busData.latitude, busData.longitude);
     var image;
+    var that = this;
 
     if(busData.adherence < 0){
         if(busData.adherence >= -2)
@@ -51,7 +52,7 @@ MapObject.initBus = function (busData) {
         busDirection: busData.direction,
         icon: image,
         id: busData.id,
-        map: this.atlMap 
+        map: that.atlMap 
     });
 
     google.maps.event.addListener(busMarker, 'mouseover', function() {
@@ -80,43 +81,45 @@ MapObject.initBus = function (busData) {
         $("#about").html("This is a live map of the buses for Atlanta's MARTA system.");
     });
 
-    this.busCollection[busData.id] = busMarker;
+    that.busCollection[busData.id] = busMarker;
 }
 
 MapObject.queueBuses = function (){
+    var that = this;
+
     $.ajax({
         "url": "helper.php",
         "dataType": "json", 
         "type": "GET",
         "success": function (response) {
             $.each(response, function(index, obj) {
-                if(this.busCollection[obj.id] === undefined) {
-                    this.initBus(obj);
+                if(that.busCollection[obj.id] === undefined) {
+                    that.initBus(obj);
                 } else {
-                   if(this.busCollection[obj.id].motion === "static"){
-                      if((obj.latitude !== this.busCollection[obj.id].getPosition().lat().toString()) ||
-                         (obj.longitude !== this.busCollection[obj.id].getPosition().lng().toString())) {
-                          this.busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
+                   if(that.busCollection[obj.id].motion === "static"){
+                      if((obj.latitude !== that.busCollection[obj.id].getPosition().lat().toString()) ||
+                         (obj.longitude !== that.busCollection[obj.id].getPosition().lng().toString())) {
+                          that.busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
                       } 
                    }
 
-                    this.busCollection[obj.id].nextStop = obj.nextStop;
-                    this.busCollection[obj.id].routeNumber = obj.route;
-                    this.busCollection[obj.id].lateness = obj.adherence;
-                    this.busCollection[obj.id].busDirection = obj.direction;
-                    this.busCollection[obj.id].modDate = Date.now();
-                    this.busCollection[obj.id].icon = 'yellow_bus.png';
+                    that.busCollection[obj.id].nextStop = obj.nextStop;
+                    that.busCollection[obj.id].routeNumber = obj.route;
+                    that.busCollection[obj.id].lateness = obj.adherence;
+                    that.busCollection[obj.id].busDirection = obj.direction;
+                    that.busCollection[obj.id].modDate = Date.now();
+                    that.busCollection[obj.id].icon = 'yellow_bus.png';
 
                     if(obj.adherence < 0){
                         if(obj.adherence >= -2)
-                            this.busCollection[obj.id].icon = 'images/yellow_bus.png';
+                            that.busCollection[obj.id].icon = 'images/yellow_bus.png';
                         else 
-                            this.busCollection[obj.id].icon = 'images/red_bus.png';
+                            that.busCollection[obj.id].icon = 'images/red_bus.png';
                     } else {
                         if(obj.adherence > 0)
-                            this.busCollection[obj.id].icon = 'images/blue_bus.png';
+                            that.busCollection[obj.id].icon = 'images/blue_bus.png';
                         else
-                            this.busCollection[obj.id].icon = 'images/green_bus.png';
+                            that.busCollection[obj.id].icon = 'images/green_bus.png';
                     }
                 }
             });
@@ -127,21 +130,22 @@ MapObject.queueBuses = function (){
     });
 
     setTimeout(function() {
-        this.queueBuses();
-    }, this.updateInterval);
+        that.queueBuses();
+    }, that.updateInterval);
 
     setTimeout(function() {
-        this.cleanseBuses();
-    }, this.cleanseInterval);
+        that.cleanseBuses();
+    }, that.cleanseInterval);
 }
 
 MapObject.cleanseBuses = function () {
     var age;
+    var that = this;
 
-    $.each(busCollection, function(key, val) {
+    $.each(that.busCollection, function(key, val) {
         age = Date.now() - val.modDate;
 
-        if(age > maxAcceptableAge){
+        if(age > this.maxAcceptableAge){
            val.setMap(Null); 
            delete busCollection[key];
         }

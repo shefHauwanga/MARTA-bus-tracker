@@ -47,7 +47,7 @@ google.maps.Marker.prototype.moveAnimation = function(toLocation) {
         } else {
             marker.motion = "static";
         }
-    }
+    };
     // Stars the bus marker moving.
     move(this, animationPositions, 0, 20);
 }
