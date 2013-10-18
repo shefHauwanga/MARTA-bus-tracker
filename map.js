@@ -1,11 +1,13 @@
-var atlanta = new google.maps.LatLng(33.775723, -84.388733);
-var busCollection = {};
-var atlMap;
-var ticksPerSecond = 1000;
-var ticksPerMinutes = 60;
-var updateInterval = ticksPerSecond;
-var cleanseInterval = ticksPerSecond * ticksPerMinutes * 10;
-var maxAcceptableAge = ticksPerSecond * ticksPerMinutes * 5
+var mapObject = {
+    atlanta: new google.maps.LatLng(33.775723, -84.388733),
+    busCollection: {},
+    atlMap,
+    ticksPerSecond: 1000,
+    ticksPerMinutes: 60,
+    updateInterval: ticksPerSecond,
+    cleanseInterval: ticksPerSecond * ticksPerMinutes * 10,
+    maxAcceptableAge: ticksPerSecond * ticksPerMinutes * 5
+};
 
 function initialize() {
     var mapDiv = $("#map-canvas")[0];
