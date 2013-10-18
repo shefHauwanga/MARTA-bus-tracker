@@ -1,4 +1,4 @@
-var mapObject = {
+var MapObject = {
     atlanta: new google.maps.LatLng(33.775723, -84.388733),
     busCollection: {},
     atlMap,
@@ -9,7 +9,7 @@ var mapObject = {
     maxAcceptableAge: ticksPerSecond * ticksPerMinutes * 5
 };
 
-function initialize() {
+MapObject.initialize = function () {
     var mapDiv = $("#map-canvas")[0];
     var mapOptions = {
         center: atlanta,
@@ -17,9 +17,9 @@ function initialize() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    atlMap = new google.maps.Map(mapDiv, mapOptions);
+    this.atlMap = new google.maps.Map(mapDiv, mapOptions);
 
-    queueBuses();
+    this.queueBuses();
 }
 
 /*
