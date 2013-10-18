@@ -125,9 +125,17 @@ MapObject.queueBuses = function (){
             $("#about").html("<div id=\"queue_problem\">There is a problem with queueing.<br /><br />" + xhr.status + "</div>");
         }
     });
+
+    setTimeout(function() {
+        this.queueBuses();
+    }, this.updateInterval);
+
+    setTimeout(function() {
+        this.cleanseBuses();
+    }, this.cleanseInterval);
 }
 
-function cleanseBuses() {
+MapObject.cleanseBuses = function () {
     var age;
 
     $.each(busCollection, function(key, val) {
@@ -140,10 +148,3 @@ function cleanseBuses() {
     });
 }
 
-setInterval(function() {
-    queueBuses();
-}, updateInterval);
-
-setInterval(function() {
-    cleanseBuses();
-}, cleanseInterval);
