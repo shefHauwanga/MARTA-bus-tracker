@@ -1,3 +1,9 @@
+/* 
+ * A variable that keeps track of if the 
+ * move helper function is currently running.
+ */ 
+google.maps.Marker.prototype.motion = "static";
+
 // Based on Tina CG Hoehr's marker
 // movement hack: http://stackoverflow.com/a/10906464
 google.maps.Marker.prototype.moveAnimation = function(toLocation) {
@@ -12,7 +18,14 @@ google.maps.Marker.prototype.moveAnimation = function(toLocation) {
     }
 
 
+    // Checks if the new coordinates are farther
+    // than a minimum distance.
     if(lessThanMinimumDist(this, toLocation))
+        return;
+
+    // Makes sure that the marker is ready
+    // to take new coordinates.
+    if(this.motion === "moving")
         return;
 
     // Stores each position of animation for the marker.
@@ -32,10 +45,11 @@ google.maps.Marker.prototype.moveAnimation = function(toLocation) {
         animationPositions.push(new google.maps.LatLng(currentLat, currentLng));
     }
 
+    // Set the flag so the marker knows it's moving 
+    this.motion = "moving";
     // Recursivly moves the bus through
     // the LatLng in the animationPositions
     // array.
-    this.motion = "moving";
     move = function(marker, latLngs, index, delay) {
         marker.setPosition(latLngs[index]);
         if(index !== latLngs.length - 1) {
@@ -45,6 +59,7 @@ google.maps.Marker.prototype.moveAnimation = function(toLocation) {
                 move(marker, latLngs, index + 1, delay);
             }, delay);
         } else {
+            // Set the flag so the marker knows it's can take new coordinates 
             marker.motion = "static";
         }
     };
