@@ -12,7 +12,7 @@ var MapObject = {
 MapObject.initialize = function () {
     var mapDiv = $("#map-canvas")[0];
     var mapOptions = {
-        center: atlanta,
+        center: this.atlanta,
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -83,40 +83,40 @@ MapObject.initBus = function (busData) {
     this.busCollection[busData.id] = busMarker;
 }
 
-function queueBuses(){
+MapObject.queueBuses = function (){
     $.ajax({
         "url": "helper.php",
         "dataType": "json", 
         "type": "GET",
         "success": function (response) {
             $.each(response, function(index, obj) {
-                if(busCollection[obj.id] === undefined) {
-                    initBus(obj);
+                if(this.busCollection[obj.id] === undefined) {
+                    this.initBus(obj);
                 } else {
-                   if(busCollection[obj.id].motion === "static"){
-                      if((obj.latitude !== busCollection[obj.id].getPosition().lat().toString()) ||
-                         (obj.longitude !== busCollection[obj.id].getPosition().lng().toString())) {
-                          busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
+                   if(this.busCollection[obj.id].motion === "static"){
+                      if((obj.latitude !== this.busCollection[obj.id].getPosition().lat().toString()) ||
+                         (obj.longitude !== this.busCollection[obj.id].getPosition().lng().toString())) {
+                          this.busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
                       } 
                    }
 
-                    busCollection[obj.id].nextStop = obj.nextStop;
-                    busCollection[obj.id].routeNumber = obj.route;
-                    busCollection[obj.id].lateness = obj.adherence;
-                    busCollection[obj.id].busDirection = obj.direction;
-                    busCollection[obj.id].modDate = Date.now();
-                    busCollection[obj.id].icon = 'yellow_bus.png';
+                    this.busCollection[obj.id].nextStop = obj.nextStop;
+                    this.busCollection[obj.id].routeNumber = obj.route;
+                    this.busCollection[obj.id].lateness = obj.adherence;
+                    this.busCollection[obj.id].busDirection = obj.direction;
+                    this.busCollection[obj.id].modDate = Date.now();
+                    this.busCollection[obj.id].icon = 'yellow_bus.png';
 
                     if(obj.adherence < 0){
                         if(obj.adherence >= -2)
-                            busCollection[obj.id].icon = 'images/yellow_bus.png';
+                            this.busCollection[obj.id].icon = 'images/yellow_bus.png';
                         else 
-                            busCollection[obj.id].icon = 'images/red_bus.png';
+                            this.busCollection[obj.id].icon = 'images/red_bus.png';
                     } else {
                         if(obj.adherence > 0)
-                            busCollection[obj.id].icon = 'images/blue_bus.png';
+                            this.busCollection[obj.id].icon = 'images/blue_bus.png';
                         else
-                            busCollection[obj.id].icon = 'images/green_bus.png';
+                            this.busCollection[obj.id].icon = 'images/green_bus.png';
                     }
                 }
             });
