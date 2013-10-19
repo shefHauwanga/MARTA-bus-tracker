@@ -2,11 +2,9 @@ var MapObject = {
     atlanta: new google.maps.LatLng(33.775723, -84.388733),
     busCollection: {},
     atlMap: null,
-    ticksPerSecond: 1000,
-    ticksPerMinutes: 60,
-    updateInterval: this.ticksPerSecond,
-    cleanseInterval: this.ticksPerSecond * this.ticksPerMinutes * 10,
-    maxAcceptableAge: this.ticksPerSecond * this.ticksPerMinutes * 5
+    updateInterval: 1000,
+    maxAcceptableAge: 1000 * 60 * 5,
+    cleanseInterval: 1000 * 60 * 10
 };
 
 MapObject.initialize = function () {
@@ -142,9 +140,9 @@ MapObject.cleanseBuses = function () {
     $.each(that.busCollection, function(key, val) {
         age = Date.now() - val.modDate;
 
-        if(age > this.maxAcceptableAge){
-           val.setMap(Null); 
-           delete busCollection[key];
+        if(age >= that.maxAcceptableAge){
+           val.setMap(null); 
+           delete that.busCollection[key];
         }
     });
 }
