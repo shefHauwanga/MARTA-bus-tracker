@@ -9,7 +9,6 @@ webServer.createServer(function(request, response) {
     client.keys("*", function(error, replies) {
         replies.forEach(function(keyVal) {
             client.get(keyVal.toString(), function(err, reply) {
-                //buses[keyVal.toString()] = JSON.parse(reply);
                 buses.push(JSON.parse(reply));
             });
         });
