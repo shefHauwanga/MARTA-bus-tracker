@@ -2,8 +2,7 @@ var restRequest = require('restler');
 var redis = require("redis");
 var client = redis.createClient();
 var martaDataURI = "http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetAllBus";
-var ticksInASecond = 1000; // A second in milliseconds.
-var updateInterval = 10 * ticksInASecond;
+var updateInterval = 10 * 1000;
 
 function updateBusData() {
     restRequest.get(martaDataURI).on('success', function(data) {
