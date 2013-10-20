@@ -85,6 +85,7 @@ MapObject.initBus = function (busData) {
 
 MapObject.queueBuses = function (){
     var that = this;
+    var color;
 
     $.ajax({
         "url": "helper.php",
@@ -105,19 +106,20 @@ MapObject.queueBuses = function (){
                     that.busCollection[obj.id].lateness = obj.adherence;
                     that.busCollection[obj.id].busDirection = obj.direction;
                     that.busCollection[obj.id].modDate = Date.now();
-                    that.busCollection[obj.id].icon = 'yellow_bus.png';
+                    color = 'FFFF00';
 
                     if(obj.adherence < 0){
                         if(obj.adherence >= -2)
-                            that.busCollection[obj.id].icon = 'images/yellow_bus.png';
+                            color = 'FFFF00';
                         else 
-                            that.busCollection[obj.id].icon = 'images/red_bus.png';
+                            color = 'FF0000';
                     } else {
                         if(obj.adherence > 0)
-                            that.busCollection[obj.id].icon = 'images/blue_bus.png';
+                            color = '4097ED';
                         else
-                            that.busCollection[obj.id].icon = 'images/green_bus.png';
+                            color = '00FF00'
                     }
+                    that.busCollection[obj.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + obj.id + '|' + color;
                 }
             });
         },
