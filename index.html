@@ -10,6 +10,15 @@
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body onload="MapObject.initialize()">
+        <div id="info-bar">
+            <div id="#bus-search">
+                <form>
+                    <div id="#bus-search-form"><input type="text"/></div>
+                    <button #id="search-button" type="button">Search</button>
+                </form>
+            </div>
+        </div>
+        <div id="click-bar"><hr>Search</div>
         <div id="map-canvas"></div>
         <div id="about">
             This is a live map of the buses for Atlanta's MARTA system.
@@ -17,6 +26,7 @@
             </div>
         </div>
         <script src="bus.js"></script>
+        <script src="load.js"></script>
         <script src="map.js"></script>
     </body>
 </html>
