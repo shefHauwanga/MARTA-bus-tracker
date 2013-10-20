@@ -26,19 +26,21 @@ MapObject.initialize = function () {
 MapObject.initBus = function (busData) {
     var busPosition = new google.maps.LatLng(busData.latitude, busData.longitude);
     var image;
+    var color;
     var that = this;
 
     if(busData.adherence < 0){
         if(busData.adherence >= -2)
-            image = 'images/yellow_bus.png';
+            color = 'FFFF00';
         else 
-            image = 'images/red_bus.png';
+            color = 'FF0000';
     } else {
         if(busData.adherence > 0)
-            image = 'images/blue_bus.png';
+            color = '4097ED';
         else
-            image = 'images/green_bus.png';
+            color = '00FF00'
     }
+    image = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + busData.id + '|' + color;
 
     var busMarker = new google.maps.Marker({
         position: busPosition,
