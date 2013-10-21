@@ -8,6 +8,8 @@ var MapObject = {
 };
 
 MapObject.initialize = function () {
+    var that = this;
+
     var mapDiv = $("#map-canvas")[0];
     var mapOptions = {
         center: this.atlanta,
@@ -18,6 +20,11 @@ MapObject.initialize = function () {
     this.atlMap = new google.maps.Map(mapDiv, mapOptions);
 
     this.queueBuses();
+
+    $('#search-button').click(function() {
+       if($('#bus-search-field').val() in that.busCollection)
+           that.populateInfoBar(that.busCollection[$('#bus-search-field').val()]);
+    });
 }
 
 /*
@@ -40,6 +47,7 @@ MapObject.initBus = function (busData) {
         else
             color = '00FF00'
     }
+
     image = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + busData.id + '|' + color;
 
     var busMarker = new google.maps.Marker({
@@ -82,42 +90,44 @@ MapObject.initBus = function (busData) {
 
 
     google.maps.event.addListener(busMarker, 'click', function() {
-        var text;
-
-        if($('#info-bar').css('display') === 'none') {
-            $('#info-bar').slideToggle("slow");
-        }        
-
-        that.atlMap.setZoom(14);
-        that.atlMap.setCenter(busMarker.getPosition());
-
-        text = '<div id="bus-num">Bus# ' + busMarker.id + '.</div>';
-        text += '<div id="bus-route">On route# ' + busMarker.routeNumber + '.</div>';
-        text += '<div id="next-stop">Next stop: ' + busMarker.nextStop + '.</div>';
-        text += '<div id="bus-direction">Heading ' + busMarker.busDirection + '.</div>';
-        text += '<div id="bus-adherence">';
-
-        if(parseInt(busMarker.lateness) < 0){
-            if(parseInt(busMarker.lateness) >= -2)
-                text += "<span id=\"un_peu_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minute(s) late.</span><br />';
-            else
-                text += "<span id=\"trop_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minutes late.</span><br />';
-        } else {
-            if(parseInt(busMarker.lateness) > 0) 
-                text += '<span id="tres_tot">This bus is running ' + busMarker.lateness + ' minute(s) early</span>.<br />';
-            else
-                text += '<span id="parfait">This bus is running on time</span>.<br />';
-        }
-
-        text += '</div>';
-
-        $("#bus-info").html(text);
+        that.populateInfoBar(busMarker);
     });
 
     that.busCollection[busData.id] = busMarker;
 }
 
-MapObject.queueBuses = function (){
+MapObject.populateInfoBar = function (busData){
+    var text;
+    var that = this;
+
+    if($('#info-bar').css('display') === 'none') {
+        $('#info-bar').slideToggle("slow");
+    }        
+
+    that.atlMap.setZoom(14);
+    that.atlMap.setCenter(busData.getPosition());
+
+    text = '<div id="bus-num">Bus# ' + busData.id + '.</div>';
+    text += '<div id="bus-route">On route# ' + busData.routeNumber + '.</div>';
+    text += '<div id="next-stop">Next stop: ' + busData.nextStop + '.</div>';
+    text += '<div id="bus-direction">Heading ' + busData.busDirection + '.</div>';
+    text += '<div id="bus-adherence">';
+
+    if(parseInt(busData.lateness) < 0){
+        if(parseInt(busData.lateness) >= -2)
+            text += "<span id=\"un_peu_tard\">This bus is running " + Math.abs(parseInt(busData.lateness)) + ' minute(s) late.</span><br />';
+        else
+            text += "<span id=\"trop_tard\">This bus is running " + Math.abs(parseInt(busData.lateness)) + ' minutes late.</span><br />';
+    } else {
+        if(parseInt(busData.lateness) > 0) 
+            text += '<span id="tres_tot">This bus is running ' + busData.lateness + ' minute(s) early</span>.<br />';
+        else
+            text += '<span id="parfait">This bus is running on time</span>.<br />';
+    }
+
+    text += '</div>';
+
+    $("#bus-info").html(text);
 }
 
 MapObject.queueBuses = function (){
