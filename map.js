@@ -118,7 +118,11 @@ MapObject.initBus = function (busData) {
 }
 
 MapObject.queueBuses = function (){
+}
+
+MapObject.queueBuses = function (){
     var that = this;
+    var busNum = []
     var color;
 
     $.ajax({
@@ -127,6 +131,7 @@ MapObject.queueBuses = function (){
         "type": "GET",
         "success": function (response) {
             $.each(response, function(index, obj) {
+                busNum.push(obj.id);
                 if(that.busCollection[obj.id] === undefined) {
                     that.initBus(obj);
                 } else {
@@ -157,6 +162,9 @@ MapObject.queueBuses = function (){
 
                     that.busCollection[obj.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + obj.id + '|' + color;
                 }
+            });
+            $('#bus-search-field').autocomplete({
+                source: busNum
             });
         },
         "error": function(xhr, ajaxOptions, thrownError) {

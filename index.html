@@ -7,6 +7,8 @@
          <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
         <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0GhZ9RY33odsucRxAaWCRmBxrc0bxd7E&sensor=false"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+        <script src="http://codeorigin.jquery.com/ui/1.9.1/jquery-ui.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body onload="MapObject.initialize()">
@@ -14,7 +16,7 @@
             <div id="bus-search-form">
                 <form>
                     <div id="bus-search">
-                        <input type="text" class="search-field" placeholder=" Search by bus number" />
+                        <input type="text" class="search-field" id="bus-search-field" placeholder=" Search by bus number" />
                         <button class="orange-flat-button" id="search-button" type="button">Search</button>
                     </div>
                 </form>
