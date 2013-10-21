@@ -83,6 +83,11 @@ MapObject.initBus = function (busData) {
 
     google.maps.event.addListener(busMarker, 'click', function() {
         var text;
+
+        if($('#info-bar').css('display') === 'none') {
+            $('#info-bar').slideToggle("slow");
+        }        
+
         that.atlMap.setZoom(14);
         that.atlMap.setCenter(busMarker.getPosition());
 
