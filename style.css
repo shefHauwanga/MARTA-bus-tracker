@@ -1,6 +1,43 @@
+#bus-adherence {
+  margin-left: 12px;
+}
+
+#bus-direction {
+  /*float: left;*/
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 6px;
+}
+
+#next-stop {
+  float: left;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 6px;
+}
+
+#bus-route {
+  /*float: left;*/
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 6px;
+}
+
+#bus-num {
+  float: left;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 6px;
+}
+
 #bus-info {
-  width: 100%;
+  padding-top: 6px;
+  color: white;
+  margin-left: 300px;
+  font-family: sans-serif; 
+  width: 78%;
   height: 100%;
+  background-color: blue;
   background: -prefix-linear-gradient(left, #4D4D4D, #4F4F4F); 
   background: linear-gradient(to right, #4D4D4D, #4F4F4F);
 }
@@ -13,7 +50,7 @@
 #bus-search-form {
   position: absolute;
   width: 300px;
-  height: 12.9%;
+  height: 85px;
   background: -prefix-linear-gradient(left, #4D4D4D, #4F4F4F); 
   background: linear-gradient(to right, #4D4D4D, #4F4F4F);
 }
@@ -53,9 +90,8 @@
 }
 
 #info-bar {
-    height: 13%;
+    height: 86px;
     width: 100%;
-    background-color: #3D3D3D;
 }
  
 #click-bar {
@@ -67,7 +103,7 @@
     border-color: black;
     border-width: 1.5px;
     color: white;
-    height: 3%;
+    height: 17px;
     width: 100%;
     text-align: center;
 }

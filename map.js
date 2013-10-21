@@ -80,6 +80,35 @@ MapObject.initBus = function (busData) {
         $("#about").html("This is a live map of the buses for Atlanta's MARTA system.");
     });
 
+
+    google.maps.event.addListener(busMarker, 'click', function() {
+        var text;
+        that.atlMap.setZoom(14);
+        that.atlMap.setCenter(busMarker.getPosition());
+
+        text = '<div id="bus-num">Bus# ' + busMarker.id + '.</div>';
+        text += '<div id="bus-route">On route# ' + busMarker.routeNumber + '.</div>';
+        text += '<div id="next-stop">Next stop: ' + busMarker.nextStop + '.</div>';
+        text += '<div id="bus-direction">Heading ' + busMarker.busDirection + '.</div>';
+        text += '<div id="bus-adherence">';
+
+        if(parseInt(busMarker.lateness) < 0){
+            if(parseInt(busMarker.lateness) >= -2)
+                text += "<span id=\"un_peu_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minute(s) late.</span><br />';
+            else
+                text += "<span id=\"trop_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minutes late.</span><br />';
+        } else {
+            if(parseInt(busMarker.lateness) > 0) 
+                text += '<span id="tres_tot">This bus is running ' + busMarker.lateness + ' minute(s) early</span>.<br />';
+            else
+                text += '<span id="parfait">This bus is running on time</span>.<br />';
+        }
+
+        text += '</div>';
+
+        $("#bus-info").html(text);
+    });
+
     that.busCollection[busData.id] = busMarker;
 }
 
@@ -106,6 +135,7 @@ MapObject.queueBuses = function (){
                     that.busCollection[obj.id].lateness = obj.adherence;
                     that.busCollection[obj.id].busDirection = obj.direction;
                     that.busCollection[obj.id].modDate = Date.now();
+
                     color = 'FFFF00';
 
                     if(obj.adherence < 0){
@@ -119,6 +149,7 @@ MapObject.queueBuses = function (){
                         else
                             color = '00FF00'
                     }
+
                     that.busCollection[obj.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + obj.id + '|' + color;
                 }
             });
