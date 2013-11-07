@@ -5,8 +5,7 @@ var client = redis.createClient();
 var martaDataURI = "http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetAllBus";
 var updateInterval = 10 * 1000;
 
-async.whilst(
-    function(){ return true; },
+async.forever(
     function(callback){
         restRequest.get(martaDataURI).on('success', function(data) {
             var createTime = Date.now().toString();
@@ -14,7 +13,7 @@ async.whilst(
                 var bus_data = null;
                 client.get(busInfo.VEHICLE, function(err, reply) {
                     if(reply === null) {
-                        bus_data = {
+                       bus_data = {
                             id: busInfo.VEHICLE,
                             route: busInfo.ROUTE,
                             latitude: busInfo.LATITUDE,
@@ -26,10 +25,10 @@ async.whilst(
                             creationTime: createTime
                         };
                     } else {
-                       reply = JSON.parse(reply);
+                        reply = JSON.parse(reply);
 
-                       if(busInfo.LATITUDE !== reply.latitude ||
-                          busInfo.LONGITUDE !== reply.longitude) {
+                        if(busInfo.LATITUDE !== reply.latitude ||
+                            busInfo.LONGITUDE !== reply.longitude) {
 
                             bus_data = reply;
                             bus_data.latitude = busInfo.LATITUDE;
@@ -64,6 +63,6 @@ async.whilst(
             });
         });
     },function(err){
-        // Stuff happens here
+        console.log("I have stopped for some reason.");
     }
 );
