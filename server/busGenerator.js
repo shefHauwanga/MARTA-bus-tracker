@@ -5,10 +5,11 @@ var client = redis.createClient();
 var martaDataURI = "http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetAllBus";
 var updateInterval = 10 * 1000;
 
+
 async.forever(
     function(callback){
-        restRequest.get(martaDataURI).on('success', function(data) {
-            var createTime = Date.now().toString();
+    restRequest.get(martaDataURI).on('success', function(data) {
+	    var createTime = Date.now().toString();
             async.forEach(data, function(busInfo, inner_callback) {
                 var bus_data = null;
                 client.get(busInfo.VEHICLE, function(err, reply) {
@@ -54,6 +55,7 @@ async.forever(
                         
                     if(bus_data !== null)
                         client.set(bus_data.id, JSON.stringify(bus_data));
+
 
                     inner_callback();
                 });
