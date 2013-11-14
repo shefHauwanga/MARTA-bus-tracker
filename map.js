@@ -10,6 +10,13 @@ var MapObject = {
 MapObject.initialize = function () {
     var that = this;
 
+    if(typeof test_val === 'undefined') {
+        that.call_sign = "helper.php";
+    } else {
+        var bus = that.getURLParameter('bus');
+        that.call_sign = "helper.php?bus=" + bus;
+    }
+
     var mapDiv = $("#map-canvas")[0];
     var mapOptions = {
         center: this.atlanta,
@@ -26,6 +33,20 @@ MapObject.initialize = function () {
            that.populateInfoBar(that.busCollection[$('#bus-search-field').val()]);
     });
 }
+
+MapObject.getURLParameter = function (sParam){
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+
+    for (var i = 0; i < sURLVariables.length; i++){
+        var sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] == sParam){
+            return sParameterName[1];
+        }
+    }
+}
+
 
 /*
  Creates a new bus object.
@@ -136,7 +157,7 @@ MapObject.queueBuses = function (){
     var color;
 
     $.ajax({
-        "url": "helper.php",
+        "url": that.call_sign,
         "dataType": "json", 
         "type": "GET",
         "success": function (response) {
