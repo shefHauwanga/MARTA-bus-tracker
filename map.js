@@ -9,12 +9,12 @@ var MapObject = {
 
 MapObject.initialize = function () {
     var that = this;
+    that.bus_var = that.getURLParameter('bus');
 
-    if(typeof test_val === 'undefined') {
+    if(typeof that.bus_var === 'undefined') {
         that.call_sign = "helper.php";
     } else {
-        var bus = that.getURLParameter('bus');
-        that.call_sign = "helper.php?bus=" + bus;
+        that.call_sign = "helper.php?bus=" + that.bus_var;
     }
 
     var mapDiv = $("#map-canvas")[0];
@@ -147,6 +147,11 @@ MapObject.populateInfoBar = function (busData){
     }
 
     text += '</div>';
+    if(typeof that.bus_var === 'undefined') {
+        text += '<div id="bus-link"><a href="?bus=' + busData.id + '&trip=' + busData.trip + '">Click here to see a route map for this bus.</a><div>';
+    } else {
+        text += '<div id="bus-link"><a href="/martaBusTracker">Click here to return to main map.</a><div>';
+    }
 
     $("#bus-info").html(text);
 }
@@ -175,6 +180,7 @@ MapObject.queueBuses = function (){
                     that.busCollection[obj.id].routeNumber = obj.route;
                     that.busCollection[obj.id].lateness = obj.adherence;
                     that.busCollection[obj.id].busDirection = obj.direction;
+                    that.busCollection[obj.id].trip = obj.trip;
                     that.busCollection[obj.id].modDate = Date.now();
 
                     color = 'FFFF00';
