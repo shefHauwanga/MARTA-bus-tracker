@@ -10,12 +10,9 @@ var MapObject = {
 MapObject.initialize = function () {
     var that = this;
     that.bus_var = that.getURLParameter('bus');
+    that.trip_var = that.getURLParameter('trip');
 
-    if(typeof that.bus_var === 'undefined') {
-        that.call_sign = "helper.php";
-    } else {
-        that.call_sign = "helper.php?bus=" + that.bus_var;
-    }
+    
 
     var mapDiv = $("#map-canvas")[0];
     var mapOptions = {
@@ -26,7 +23,20 @@ MapObject.initialize = function () {
 
     this.atlMap = new google.maps.Map(mapDiv, mapOptions);
 
-    this.queueBuses();
+    if(typeof that.bus_var === 'undefined') {
+        that.call_sign = "helper.php";
+    } else {
+        $('#click-bar').remove();
+        $('#info-bar').remove();
+        that.call_sign = "helper.php?bus=" + that.bus_var;
+
+        if(typeof that.trip_var !== 'undefined')
+            that.trip_call = "helper.php?trip_id=" + that.trip_var;
+
+        MapObject.queueRoute();
+    }
+    that.queueBuses();
+
 
     $('#search-button').click(function() {
        if($('#bus-search-field').val() in that.busCollection)
@@ -154,6 +164,71 @@ MapObject.populateInfoBar = function (busData){
     }
 
     $("#bus-info").html(text);
+}
+
+
+MapObject.queueRoute = function (){
+    var that = this;
+    that.stop_collection = {};
+
+    $.ajax({
+        "url": that.trip_call,
+        "dataType": "json", 
+        "type": "GET",
+        "success": function (response) {
+            that.routeName = response['name'];
+            that.drawStops(response['stops']);
+            that.drawRoute(response['shape']);
+        }, "error": function(xhr, ajaxOptions, throwError){
+            $("#about").html("<div id=\"queue_problem\">There is a problem with the map drawing.<br /><br />" + xhr.status + "</div>");
+        }
+    });
+}
+
+MapObject.drawRoute = function (shape_data){
+    var that = this;
+    var shape_array = [];
+
+    $.each(shape_data, function (index, obj) {
+        var pos = new google.maps.LatLng(obj.shape_pt_lat, obj.shape_pt_lon);
+        shape_array.push(pos);
+    });
+
+    var routePath = new google.maps.Polyline({
+        path: shape_array,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+
+    routePath.setMap(that.atlMap);
+}
+
+MapObject.drawStops = function (stop_data){
+    var that = this;
+
+    $.each(stop_data, function(index, obj) {
+        var pos = new google.maps.LatLng(obj.lat, obj.lon);
+        var stopMarker = new google.maps.Marker({
+            position: pos,
+            title: obj.name,
+            animation: google.maps.Animation.DROP,
+            count: index,
+            stop_name:obj.name,
+            arrival_time:obj.arrival_time,
+            departure_time:obj.departure_time,
+            map: that.atlMap
+        });
+
+        that.stop_collection[index] = stopMarker;
+    });
+}
+
+MapObject.drawMap = function (shape_data){
+    var that = this;
+    
+    $.each(shape_data, function(index, obj) {
+    });
 }
 
 MapObject.queueBuses = function (){
