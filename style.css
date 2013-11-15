@@ -1,3 +1,4 @@
+html, body { overflow: hidden; }
 .ui-autocomplete {
     max-height: 200px;
     overflow-y: hidden;
@@ -8,7 +9,9 @@
 }
 
 #bus-adherence {
+  float: left;
   margin-left: 12px;
+  margin-right: 12px;
 }
 
 #bus-direction {
@@ -25,7 +28,14 @@
   margin-bottom: 6px;
 }
 
+#bus-link {
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 6px;
+}
+
 #bus-route {
+  /*float: left;*/
   margin-left: 12px;
   margin-right: 12px;
   margin-bottom: 6px;
@@ -92,6 +102,7 @@
 }
 
 #info-bar {
+  clear: both;
   height: 86px;
   width: 100%;
   background: -prefix-linear-gradient(left, #4D4D4D, #4F4F4F); 
