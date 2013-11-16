@@ -207,10 +207,10 @@ MapObject.drawRoute = function (shape_data){
 
 MapObject.drawStops = function (stop_data){
     var that = this;
-    var num;
+    var size = 0;
 
     $.each(stop_data, function(index, obj) {
-        num = index
+        size += 1;
         var pos = new google.maps.LatLng(obj.lat, obj.lon);
 
         var stopMarker = new google.maps.Marker({
@@ -240,6 +240,10 @@ MapObject.drawStops = function (stop_data){
 
         that.stop_collection[index] = stopMarker;
     });
+
+    that.atlMap.setZoom(14);
+    that.atlMap.setCenter(that.stop_collection[Math.floor(size/2)].getPosition());
+    
 }
 
 MapObject.drawMap = function (shape_data){
