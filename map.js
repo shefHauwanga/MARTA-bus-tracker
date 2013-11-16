@@ -158,8 +158,9 @@ MapObject.populateInfoBar = function (busData){
     }
 
     text += '</div>';
-    if(typeof that.bus_var === 'undefined') {
-        text += '<div id="bus-link"><a href="?bus=' + busData.id + '&trip=' + busData.trip + '">Click here to see a route map for this bus.</a><div>';
+    if(typeof that.bus_var === 'undefined' ) {
+        if(busData.trip !== "0")
+            text += '<div id="bus-link"><a href="?bus=' + busData.id + '&trip=' + busData.trip + '">Click here to see a route map for this bus.</a><div>';
     } else {
         text += '<div id="bus-link"><a href="/martaBusTracker">Click here to return to main map.</a><div>';
     }
