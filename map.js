@@ -215,6 +215,7 @@ MapObject.drawStops = function (stop_data){
             animation: google.maps.Animation.DROP,
             count: index,
             stop_name:obj.name,
+            icon: "/martaBusTracker/images/stop.png",
             arrival_time:obj.arrival_time,
             departure_time:obj.departure_time,
             map: that.atlMap
