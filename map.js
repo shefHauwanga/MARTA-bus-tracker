@@ -114,6 +114,7 @@ MapObject.initBus = function (busData) {
 
         $("#about").html(text);
     });
+    
 
     google.maps.event.addListener(busMarker, 'mouseout', function() {
         $("#about").html("This is a live map of the buses for Atlanta's MARTA system.");
@@ -206,9 +207,12 @@ MapObject.drawRoute = function (shape_data){
 
 MapObject.drawStops = function (stop_data){
     var that = this;
+    var num;
 
     $.each(stop_data, function(index, obj) {
+        num = index
         var pos = new google.maps.LatLng(obj.lat, obj.lon);
+
         var stopMarker = new google.maps.Marker({
             position: pos,
             title: obj.name,
@@ -216,9 +220,22 @@ MapObject.drawStops = function (stop_data){
             count: index,
             stop_name:obj.name,
             icon: "/martaBusTracker/images/stop.png",
-            arrival_time:obj.arrival_time,
-            departure_time:obj.departure_time,
+            arrival_time: obj.arrival_time,
+            departure_time: obj.departure_time,
             map: that.atlMap
+        });
+
+        google.maps.event.addListener(stopMarker, 'mouseout', function() {
+            $("#about").html("This is a live map of the buses for Atlanta's MARTA system.");
+        });
+
+        google.maps.event.addListener(stopMarker, 'mouseover', function() {
+            var text = '<div id=\"stop_data\">';
+            text += "This is stop is " + stopMarker.title + ".<br /><br />";
+            text += "The arrival time is " + stopMarker.arrival_time + ".<br />";
+            text += '</div>';
+
+            $("#about").html(text);
         });
 
         that.stop_collection[index] = stopMarker;
