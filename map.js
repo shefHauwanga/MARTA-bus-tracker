@@ -20,6 +20,7 @@ MapObject.initialize = function () {
     };
 
     this.atlMap = new google.maps.Map(mapDiv, mapOptions);
+    $("#about").html(this.mainText());
 
     if(typeof that.bus_var === 'undefined') {
         that.call_sign = "helper.php";
