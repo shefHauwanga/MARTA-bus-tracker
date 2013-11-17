@@ -167,3 +167,17 @@ body {
     padding: 1em; 
     opacity: 0.85;
 }
+
+#stop_list { 
+    height: 200px;
+    overflow-Y:auto;
+    z-index: 9000; 
+    position: absolute; 
+    right: 25px; 
+    top: 255px; 
+    background: #eee; 
+    font-family: sans-serif; 
+    width: 300px; 
+    padding: 1em; 
+    opacity: 0.85;
+}

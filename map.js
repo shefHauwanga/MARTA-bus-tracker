@@ -24,6 +24,7 @@ MapObject.initialize = function () {
 
     if(typeof that.bus_var === 'undefined') {
         that.call_sign = "helper.php";
+        $('#stop_list').remove();
     } else {
         $('#click-bar').remove();
         $('#info-bar').remove();
@@ -218,10 +219,13 @@ MapObject.drawRoute = function (shape_data){
 MapObject.drawStops = function (stop_data){
     var that = this;
     var size = 0;
+    
+    $("#about").css({"top": "40px"});
 
     $.each(stop_data, function(index, obj) {
         size += 1;
         var pos = new google.maps.LatLng(obj.lat, obj.lon);
+        var stop_text;
 
         var stopMarker = new google.maps.Marker({
             position: pos,
@@ -234,6 +238,11 @@ MapObject.drawStops = function (stop_data){
             departure_time: obj.departure_time,
             map: that.atlMap
         });
+
+        stop_text = '<div>' + size + '. Stop name: ' + stopMarker.title;
+        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '</div></div><br /><br />';
+
+        $("#stop_list").append(stop_text);
 
         google.maps.event.addListener(stopMarker, 'mouseout', function() {
             $("#about").html(that.mainText());
