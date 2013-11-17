@@ -239,8 +239,8 @@ MapObject.drawStops = function (stop_data){
             map: that.atlMap
         });
 
-        stop_text = '<div>' + size + '. Stop name: ' + stopMarker.title;
-        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '</div></div><br /><br />';
+        stop_text = '<div>Stop #' + size + ': <br />Stop name: ' + stopMarker.title;
+        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '.</div></div><br /><br />';
 
         $("#stop_list").append(stop_text);
 
