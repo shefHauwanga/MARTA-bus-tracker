@@ -169,7 +169,7 @@ body {
 }
 
 #stop_list { 
-    height: 200px;
+    height: 350px;
     overflow-Y:auto;
     z-index: 9000; 
     position: absolute; 

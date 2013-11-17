@@ -20,15 +20,18 @@ MapObject.initialize = function () {
     };
 
     this.atlMap = new google.maps.Map(mapDiv, mapOptions);
+
     $("#about").html(this.mainText());
 
     if(typeof that.bus_var === 'undefined') {
         that.call_sign = "helper.php";
+
         $('#stop_list').remove();
     } else {
         $('#click-bar').remove();
         $('#info-bar').remove();
         that.call_sign = "helper.php?bus=" + that.bus_var;
+
 
         if(typeof that.trip_var !== 'undefined')
             that.trip_call = "helper.php?trip_id=" + that.trip_var;
@@ -239,10 +242,18 @@ MapObject.drawStops = function (stop_data){
             map: that.atlMap
         });
 
-        stop_text = '<div>Stop #' + size + ': <br />Stop name: ' + stopMarker.title;
-        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '.</div></div><br /><br />';
+        var selector_name = 'stop-' + size;
+
+        stop_text = '<a href="#"><div id="' + selector_name + '">Stop #' + size + ': <br />Stop name: ' + stopMarker.title;
+        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '.</div></div></a><br /><br />';
 
         $("#stop_list").append(stop_text);
+ 
+        $("#" + selector_name).click(function(){
+            that.atlMap.setZoom(18);
+            
+            that.atlMap.setCenter(stopMarker.getPosition());
+        });
 
         google.maps.event.addListener(stopMarker, 'mouseout', function() {
             $("#about").html(that.mainText());
@@ -263,13 +274,6 @@ MapObject.drawStops = function (stop_data){
     that.atlMap.setZoom(14);
     that.atlMap.setCenter(that.stop_collection[Math.floor(size/2)].getPosition());
     
-}
-
-MapObject.drawMap = function (shape_data){
-    var that = this;
-    
-    $.each(shape_data, function(index, obj) {
-    });
 }
 
 MapObject.queueBuses = function (){
