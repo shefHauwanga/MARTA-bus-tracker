@@ -12,8 +12,6 @@ MapObject.initialize = function () {
     that.bus_var = that.getURLParameter('bus');
     that.trip_var = that.getURLParameter('trip');
 
-    
-
     var mapDiv = $("#map-canvas")[0];
     var mapOptions = {
         center: this.atlanta,
@@ -117,7 +115,7 @@ MapObject.initBus = function (busData) {
     
 
     google.maps.event.addListener(busMarker, 'mouseout', function() {
-        $("#about").html("This is a live map of the buses for Atlanta's MARTA system.");
+        $("#about").html(that.mainText());
     });
 
 
@@ -126,6 +124,16 @@ MapObject.initBus = function (busData) {
     });
 
     that.busCollection[busData.id] = busMarker;
+}
+
+MapObject.mainText = function() {
+    var that = this;
+    var msg_text = "This is a live map of the buses for Atlanta's MARTA system.";
+
+    if(typeof that.bus_var !== 'undefined')
+        msg_text += '<div><a href="/martaBusTracker/">Return to main map.</a></div>';
+
+    return msg_text;
 }
 
 MapObject.populateInfoBar = function (busData){
@@ -158,7 +166,7 @@ MapObject.populateInfoBar = function (busData){
     }
 
     text += '</div>';
-    if(typeof that.bus_var === 'undefined' ) {
+    if(typeof that.bus_var === 'undefined') {
         if(busData.trip !== "0")
             text += '<div id="bus-link"><a href="?bus=' + busData.id + '&trip=' + busData.trip + '">Click here to see a route map for this bus.</a><div>';
     } else {
@@ -227,7 +235,7 @@ MapObject.drawStops = function (stop_data){
         });
 
         google.maps.event.addListener(stopMarker, 'mouseout', function() {
-            $("#about").html("This is a live map of the buses for Atlanta's MARTA system.");
+            $("#about").html(that.mainText());
         });
 
         google.maps.event.addListener(stopMarker, 'mouseover', function() {
