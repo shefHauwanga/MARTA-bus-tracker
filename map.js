@@ -132,7 +132,7 @@ MapObject.mainText = function() {
     var msg_text = "This is a live map of the buses for Atlanta's MARTA system.";
 
     if(typeof that.bus_var !== 'undefined')
-        msg_text += '<div><a href="/martaBusTracker/">Return to main map.</a></div>';
+        msg_text += '<br /><div><a href="/martaBusTracker/">Return to main map.</a></div>';
 
     return msg_text;
 }
