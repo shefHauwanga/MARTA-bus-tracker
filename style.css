@@ -177,16 +177,26 @@ body {
 #stop_head {
   height: 50px;
   background: black;
-  margin-bottom: 10px;
+  /*#margin-bottom: 10px;*/
   padding-top: 10px;
+  /*overflow-Y:auto;*/
+  z-index: 9000; 
+  position: absolute; 
+  right: 25px; 
+  top: 170px; 
+  font-family: sans-serif; 
+  width: 300px; 
+  padding: 1em; 
+  opacity: 0.85;
 }
-#stop_container { 
+
+#stop_list { 
     height: 350px;
     overflow-Y:auto;
     z-index: 9000; 
     position: absolute; 
     right: 25px; 
-    top: 190px; 
+    top: 252.4px; 
     background: #eee; 
     font-family: sans-serif; 
     width: 300px; 

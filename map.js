@@ -27,6 +27,7 @@ MapObject.initialize = function () {
         that.call_sign = "helper.php";
 
         $('#stop_list').remove();
+        $('#stop_head').remove();
     } else {
         $('#click-bar').remove();
         $('#info-bar').remove();
