@@ -91,6 +91,7 @@ MapObject.initBus = function (busData) {
         trip: busData.trip,
         lateness: busData.adherence,
         busDirection: busData.direction,
+        busColor: color,
         icon: image,
         id: busData.id,
         map: that.atlMap 
@@ -203,6 +204,7 @@ MapObject.queueRoute = function (){
 MapObject.drawRoute = function (shape_data){
     var that = this;
     var shape_array = [];
+    var color = that.busCollection[that.bus_var].busColor;
 
     $.each(shape_data, function (index, obj) {
         var pos = new google.maps.LatLng(obj.shape_pt_lat, obj.shape_pt_lon);
@@ -211,7 +213,7 @@ MapObject.drawRoute = function (shape_data){
 
     var routePath = new google.maps.Polyline({
         path: shape_array,
-        strokeColor: '#FF0000',
+        strokeColor: '#' + color,
         strokeOpacity: 1.0,
         strokeWeight: 2
     });
@@ -221,9 +223,14 @@ MapObject.drawRoute = function (shape_data){
 
 MapObject.drawStops = function (stop_data){
     var that = this;
+    var color = that.busCollection[that.bus_var].busColor;
+    var route = that.busCollection[that.bus_var].routeNumber;
     var size = 0;
     
+    $("#stop_head").html('<div id="stop_head_text">Stops for bus #' + that.bus_var + '<br/> on route #' + route +  '</div>');
+
     $("#about").css({"top": "40px"});
+    $("#stop_head_text").css({"color": "#" + color});
 
     $.each(stop_data, function(index, obj) {
         size += 1;
@@ -245,7 +252,7 @@ MapObject.drawStops = function (stop_data){
         var selector_name = 'stop-' + size;
 
         stop_text = '<a href="#"><div id="' + selector_name + '">Stop #' + size + ': <br />Stop name: ' + stopMarker.title;
-        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '.</div></div></a><br /><br />';
+        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '.</div></div></a>';
 
         $("#stop_list").append(stop_text);
  
@@ -254,6 +261,8 @@ MapObject.drawStops = function (stop_data){
             
             that.atlMap.setCenter(stopMarker.getPosition());
         });
+
+        $("#" + selector_name).css({"border-bottom": "2px solid #e8930c", "margin-bottom" : "10px", "padding-bottom" : "10px"});
 
         google.maps.event.addListener(stopMarker, 'mouseout', function() {
             $("#about").html(that.mainText());
@@ -318,6 +327,8 @@ MapObject.queueBuses = function (){
                     }
 
                     that.busCollection[obj.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + obj.id + '|' + color;
+
+                    that.busCollection[obj.id].busColor = color;
                 }
             });
             $('#bus-search-field').autocomplete({

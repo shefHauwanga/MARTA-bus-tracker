@@ -168,7 +168,19 @@ body {
     opacity: 0.85;
 }
 
-#stop_list { 
+#stop_head_text {
+  font-size: 19px;
+  text-align: center;
+  
+}
+
+#stop_head {
+  height: 50px;
+  background: black;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+#stop_container { 
     height: 350px;
     overflow-Y:auto;
     z-index: 9000; 
