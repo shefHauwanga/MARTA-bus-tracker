@@ -1,4 +1,5 @@
 html, body { overflow: hidden; }
+
 .ui-autocomplete {
     max-height: 200px;
     overflow-y: hidden;
@@ -163,7 +164,7 @@ body {
     top: 140px; 
     background: #eee; 
     font-family: sans-serif; 
-    width: 300px; 
+    width: 302px; 
     padding: 1em; 
     opacity: 0.85;
 }
@@ -185,12 +186,14 @@ body {
   right: 25px; 
   top: 170px; 
   font-family: sans-serif; 
-  width: 300px; 
+  width: 302px; 
   padding: 1em; 
   opacity: 0.85;
 }
 
 #stop_list { 
+    border: solid;
+    border-width: 1px;
     height: 350px;
     overflow-Y:auto;
     z-index: 9000; 
