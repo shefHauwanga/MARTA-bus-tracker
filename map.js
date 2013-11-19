@@ -31,19 +31,24 @@ MapObject.initialize = function () {
     } else {
         $('#click-bar').remove();
         $('#info-bar').remove();
-        that.call_sign = "helper.php?bus=" + that.bus_var;
 
+        that.call_sign = "helper.php?bus=" + that.bus_var;
 
         if(typeof that.trip_var !== 'undefined')
             that.trip_call = "helper.php?trip_id=" + that.trip_var;
 
         MapObject.queueRoute();
     }
-    that.queueBuses();
 
+    that.queueBuses();
 
     $('#search-button').click(function() {
        if($('#bus-search-field').val() in that.busCollection)
+           that.populateInfoBar(that.busCollection[$('#bus-search-field').val()]);
+    });
+
+    $('#bus-search-field').keypress(function(event) {
+        if(event.which === 13)
            that.populateInfoBar(that.busCollection[$('#bus-search-field').val()]);
     });
 }
@@ -141,6 +146,11 @@ MapObject.mainText = function() {
         msg_text += '<br /><br /><div><a href="/martaBusTracker/">Return to main map.</a></div>';
 
     return msg_text;
+}
+
+
+MapObject.stopReload = function() {
+    return false;
 }
 
 MapObject.populateInfoBar = function (busData){

@@ -14,7 +14,7 @@
     <body onload="MapObject.initialize()">
         <div id="info-bar">
             <div id="bus-search-form">
-                <form>
+                <form onsubmit="return MapObject.stopReload()">
                     <div id="bus-search">
                         <input type="text" class="search-field" id="bus-search-field" placeholder=" Search by bus number" />
                         <button class="orange-flat-button" id="search-button" type="button">Search</button>
