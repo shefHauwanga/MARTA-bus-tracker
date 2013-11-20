@@ -12,9 +12,7 @@ var MapObject = {
     up: 0
 };
 
-$('#click-bar').click(function() {
-    MapObject.menuDrop()
-});
+
 
 MapObject.initialize = function () {
     var that = this;
@@ -53,6 +51,10 @@ MapObject.initialize = function () {
     }
 
     that.queueBuses();
+
+    $('#click-bar').click(function() {
+        MapObject.menuDrop()
+    });
 
     $('#search-button').click(function() {
        if($('#bus-search-field').val() in that.busCollection)
@@ -152,12 +154,10 @@ MapObject.initBus = function (busData) {
 
         $("#about").html(text);
     });
-    
 
     google.maps.event.addListener(busMarker, 'mouseout', function() {
         $("#about").html(that.mainText());
     });
-
 
     google.maps.event.addListener(busMarker, 'click', function() {
         that.populateInfoBar(busMarker);
@@ -175,7 +175,6 @@ MapObject.mainText = function() {
 
     return msg_text;
 }
-
 
 MapObject.stopReload = function() {
     return false;
