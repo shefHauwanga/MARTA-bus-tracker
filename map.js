@@ -1,11 +1,20 @@
+$(document).ready(function(){
+    $('#info-bar').hide();
+});
+
 var MapObject = {
     atlanta: new google.maps.LatLng(33.775723, -84.388733),
     busCollection: {},
     atlMap: null,
     updateInterval: 1000,
     maxAcceptableAge: 1000 * 60 * 5,
-    cleanseInterval: 1000 * 60 * 10
+    cleanseInterval: 1000 * 60 * 10,
+    up: 0
 };
+
+$('#click-bar').click(function() {
+    MapObject.menuDrop()
+});
 
 MapObject.initialize = function () {
     var that = this;
@@ -54,6 +63,22 @@ MapObject.initialize = function () {
         if(event.which === 13)
            that.populateInfoBar(that.busCollection[$('#bus-search-field').val()]);
     });
+}
+
+
+MapObject.menuDrop = function () {
+    var change;
+    var that = this;
+      
+    if (that.up % 2 === 0) {
+        change = "+=90px";
+    } else {
+        change = "-=90px";
+    }   
+  
+    $('#info-bar').slideToggle("slow");
+    $('#hire-me-button').animate({top: change}, 550);
+    that.up++;
 }
 
 MapObject.getURLParameter = function (sParam){
@@ -161,7 +186,8 @@ MapObject.populateInfoBar = function (busData){
     var that = this;
 
     if($('#info-bar').css('display') === 'none') {
-        $('#info-bar').slideToggle("slow");
+        that.menuDrop();
+        /*$('#info-bar').slideToggle("slow");*/
     }        
 
     that.atlMap.setZoom(14);
