@@ -14,6 +14,9 @@ MapObject.initialize = function () {
 
     var mapDiv = $("#map-canvas")[0];
     var mapOptions = {
+        panControl: false,
+        mapTypeControl: false,
+        streetViewControl: false,
         center: this.atlanta,
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
