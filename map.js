@@ -14,6 +14,7 @@ var MapObject = {
 
 MapObject.initialize = function () {
     var that = this;
+    var form_data = '<div style="color:red;">haha</div>';
     that.bus_var = that.getURLParameter('bus');
     that.trip_var = that.getURLParameter('trip');
 
@@ -35,10 +36,9 @@ MapObject.initialize = function () {
     $("#about").html(this.mainText());
 
     $('#hire-me-button').click(function(e){
-        MapObject.mapModal.open({content: "Hows it going?"});
+        MapObject.mapModal.open({content: form_data});
 	e.preventDefault();
     });
-
 
     if(typeof that.bus_var === 'undefined') {
         that.call_sign = "helper.php";
@@ -97,12 +97,11 @@ MapObject.getURLParameter = function (sParam){
     for (var i = 0; i < sURLVariables.length; i++){
         var sParameterName = sURLVariables[i].split('=');
 
-        if (sParameterName[0] == sParam){
+        if (sParameterName[0] === sParam){
             return sParameterName[1];
         }
     }
 }
-
 
 /*
  Creates a new bus object.
@@ -230,6 +229,7 @@ MapObject.populateInfoBar = function (busData){
 
 
 MapObject.queueRoute = function (){
+    MapObject.mapModal.open({content: '<div id="loading-screen">Loading.</div>'});
     var that = this;
     that.stop_collection = {};
 
@@ -239,15 +239,23 @@ MapObject.queueRoute = function (){
         "type": "GET",
         "success": function (response) {
             that.routeName = response['name'];
-            that.drawStops(response['stops']);
-            that.drawRoute(response['shape']);
+            async.parallel([
+                function (callback) {
+                    that.drawStops(response['stops'], callback);
+                },
+                function (callback) {
+                    that.drawRoute(response['shape'], callback);
+                }
+            ], function(err) {
+                MapObject.mapModal.close();
+            });
         }, "error": function(xhr, ajaxOptions, throwError){
             $("#about").html("<div id=\"queue_problem\">There is a problem with the map drawing.<br /><br />" + xhr.status + "</div>");
         }
     });
 }
 
-MapObject.drawRoute = function (shape_data){
+MapObject.drawRoute = function (shape_data, callback){
     var that = this;
     var shape_array = [];
     var color = that.busCollection[that.bus_var].busColor;
@@ -265,9 +273,10 @@ MapObject.drawRoute = function (shape_data){
     });
 
     routePath.setMap(that.atlMap);
+    callback();
 }
 
-MapObject.drawStops = function (stop_data){
+MapObject.drawStops = function (stop_data, callback){
     var that = this;
     var color = that.busCollection[that.bus_var].busColor;
     var route = that.busCollection[that.bus_var].routeNumber;
@@ -328,7 +337,7 @@ MapObject.drawStops = function (stop_data){
 
     that.atlMap.setZoom(14);
     that.atlMap.setCenter(that.stop_collection[Math.floor(size/2)].getPosition());
-    
+    callback();
 }
 
 MapObject.queueBuses = function (){
@@ -403,13 +412,11 @@ MapObject.mapModal = (function() {
     var close;
 
     method.center = function () {
-        var tipTop, left;
+        var left;
         
-        tipTop = Math.max($(window).height() - modal.outerHeight(), 0) / 2;
         left = Math.max($(window).width() - modal.outerWidth(), 0) / 2;
 
         modal.css({
-            tipTop: tipTop + $(window).scrollTop(),
             left: left + $(window).scrollLeft()
         });
     };
