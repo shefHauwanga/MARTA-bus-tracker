@@ -167,6 +167,7 @@ body {
     width: 302px; 
     padding: 1em; 
     opacity: 0.85;
+    filter: alpha(opacity=85);
 }
 
 #stop_head_text {
@@ -188,6 +189,7 @@ body {
   width: 302px; 
   padding: 1em; 
   opacity: 0.85;
+  filter: alpha(opacity=85);
 }
 
 #stop_list { 
@@ -204,6 +206,7 @@ body {
     width: 300px; 
     padding: 1em; 
     opacity: 0.85;
+    filter: alpha(opacity=85);
 }
 
 #bus-suggestion-text {
@@ -224,6 +227,7 @@ body {
   width: 170px; 
   padding: 1em; 
   opacity: 0.65;
+  filter: alpha(opacity=65);
   /*position: relative;
   vertical-align: top;
   width: 100%;*/
