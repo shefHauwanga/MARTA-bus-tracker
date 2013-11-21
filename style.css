@@ -216,13 +216,14 @@ body {
 #hire-me-button { 
   z-index: 9000;
   position: absolute; 
-  left: 40px; 
+  left: 5px; 
   top: 40px; 
   background: #eee; 
-  font-family: sans-serif; 
-  width: 100px; 
+  font-family: 'Sonsie One', cursive;
+  /*font-family: sans-serif; */
+  width: 170px; 
   padding: 1em; 
-  opacity: 0.55;
+  opacity: 0.65;
   /*position: relative;
   vertical-align: top;
   width: 100%;*/

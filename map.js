@@ -24,6 +24,9 @@ MapObject.initialize = function () {
         panControl: false,
         mapTypeControl: false,
         streetViewControl: false,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_CENTER
+        },
         center: this.atlanta,
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -290,8 +293,8 @@ MapObject.drawStops = function (stop_data){
 
         var selector_name = 'stop-' + size;
 
-        stop_text = '<a href="#"><div id="' + selector_name + '">Stop #' + size + ': <br />Stop name: ' + stopMarker.title;
-        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '.</div></div></a>';
+        stop_text = '<div id="' + selector_name + '"><a href="#">Stop #' + size + '</a>: <br />Stop name: ' + stopMarker.title;
+        stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '.</div></div>';
 
         $("#stop_list").append(stop_text);
  
