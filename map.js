@@ -12,8 +12,6 @@ var MapObject = {
     up: 0
 };
 
-
-
 MapObject.initialize = function () {
     var that = this;
     that.bus_var = that.getURLParameter('bus');
@@ -35,6 +33,12 @@ MapObject.initialize = function () {
     this.atlMap = new google.maps.Map(mapDiv, mapOptions);
 
     $("#about").html(this.mainText());
+
+    $('#hire-me-button').click(function(e){
+        MapObject.mapModal.open({content: "Hows it going?"});
+	e.preventDefault();
+    });
+
 
     if(typeof that.bus_var === 'undefined') {
         that.call_sign = "helper.php";
@@ -390,6 +394,69 @@ MapObject.queueBuses = function (){
         that.cleanseBuses();
     }, that.cleanseInterval);
 }
+
+MapObject.mapModal = (function() {
+    var method = {};
+    var overlay;
+    var modal;
+    var content;
+    var close;
+
+    method.center = function () {
+        var tipTop, left;
+        
+        tipTop = Math.max($(window).height() - modal.outerHeight(), 0) / 2;
+        left = Math.max($(window).width() - modal.outerWidth(), 0) / 2;
+
+        modal.css({
+            tipTop: tipTop + $(window).scrollTop(),
+            left: left + $(window).scrollLeft()
+        });
+    };
+
+    method.open = function (settings) {
+        content.empty().append(settings.content);
+
+        modal.css({
+            width: settings.width || 'auto', 
+            height: settings.height || 'auto'
+        });
+
+        method.center();
+
+        $(window).bind('resize.modal', method.center);
+
+        modal.show();
+        overlay.show();
+    };
+
+    method.close = function () {
+        modal.hide();
+        overlay.hide();
+        content.empty();
+        $(window).unbind('resize.modal');
+    };
+
+    overlay = $('<div id="overlay"></div>');
+    modal = $('<div id="modal"></div>');
+    content = $('<div id="content"></div>');
+    close = $('<a id="close" href="#">close</a>');
+
+    modal.hide();
+    overlay.hide();
+    modal.append(content, close);
+
+    $(document).ready(function(){
+        $('body').append(overlay, modal);
+    });
+
+    close.click(function(e){
+        e.preventDefault();
+        method.close();
+    });
+    
+    return method;
+}());
 
 MapObject.cleanseBuses = function () {
     var age;
