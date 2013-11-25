@@ -352,7 +352,9 @@ body {
 }
 
 #form-container {
-  padding: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+  /*padding-right: 10px;*/
   background: #a7a4a4;
 }
 
