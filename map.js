@@ -46,9 +46,9 @@ MapObject.initialize = function () {
     form_data += '<div id="name-container" class="form-fields"><input type="text" class="form-search-field" id="first-name-field" placeholder=" First name" />';
     form_data += '<input type="text" class="form-search-field" id="last-name-field" placeholder=" Last name" /></div>';
     form_data += '<div id="company-container" class="form-fields"><input type="text" class="form-search-field" id="company-name-field" placeholder=" Company name" /></div>';
-    form_data += '<div class="form-fields"><textarea placeholder="Enter your project description here." id="project-textfield" cols="35" rows="7"></textarea></div>';
-    form_data += '<div id="submit-container"><button class="orange-flat-button" id="submit-button" type="button">Send me a line.</button></div>';
+    form_data += '<div class="textarea-fields"><textarea placeholder="Enter your project description here." id="project-textfield" cols="33" rows="7"></textarea></div>';
     form_data += '</form></div>';
+    form_data += '<a class="normal-link" href="#"><div id="submit-container">Send me a line</div></a>';
 
     $('#hire-me-button').click(function(e){
         MapObject.mapModal.open({content: form_data});
