@@ -14,7 +14,7 @@ var MapObject = {
 
 MapObject.initialize = function () {
     var that = this;
-    var form_data = '<div style="color:red;">haha</div>';
+    var form_data;
     that.bus_var = that.getURLParameter('bus');
     that.trip_var = that.getURLParameter('trip');
 
@@ -34,6 +34,21 @@ MapObject.initialize = function () {
     this.atlMap = new google.maps.Map(mapDiv, mapOptions);
 
     $("#about").html(this.mainText());
+
+    description_text = "Hi, I'm <a href=#>Sheefeni Hauwanga</a>, a web and mobile developer from Atlanta, ";
+    description_text += "and I created this map to make Atlanta more navigable without a car. "
+    description_text += "If you'd like me to assist you with your next project, send me a line with the form below.";
+
+    form_data = '<div id="description-form-text">' + description_text  + '</div>';
+    form_data += '<div id="hire-form-text">Tell me about your project!</div>';
+    form_data += '<div id="form-container"><form onsubmit="return MapObject.stopReload()">';
+    form_data += '<div id="email-container" class="form-fields"><input type="text" class="form-search-field" id="email-field" placeholder=" Email address" /></div>';
+    form_data += '<div id="name-container" class="form-fields"><input type="text" class="form-search-field" id="first-name-field" placeholder=" First name" />';
+    form_data += '<input type="text" class="form-search-field" id="last-name-field" placeholder=" Last name" /></div>';
+    form_data += '<div id="company-container" class="form-fields"><input type="text" class="form-search-field" id="company-name-field" placeholder=" Company name" /></div>';
+    form_data += '<div class="form-fields"><textarea placeholder="Enter your project description here." id="project-textfield" cols="35" rows="7"></textarea></div>';
+    form_data += '<div id="submit-container"><button class="orange-flat-button" id="submit-button" type="button">Send me a line.</button></div>';
+    form_data += '</form></div>';
 
     $('#hire-me-button').click(function(e){
         MapObject.mapModal.open({content: form_data});

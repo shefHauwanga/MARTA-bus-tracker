@@ -1,12 +1,12 @@
 html, body { overflow: hidden; }
 
 .ui-autocomplete {
-    max-height: 200px;
-    overflow-y: hidden;
-    /* prevent horizontal scrollbar */
-    overflow-x: hidden;
-    /* add padding to account for vertical scrollbar */
-    padding-right: 20px;
+  max-height: 200px;
+  overflow-y: hidden;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+  /* add padding to account for vertical scrollbar */
+  padding-right: 20px;
 }
 
 #bus-adherence {
@@ -79,6 +79,40 @@ html, body { overflow: hidden; }
   height: 32px;
 }
 
+.form-search-field {
+  border: 0px;
+  height: 32px;
+  background: #000000;
+  color: white;
+}
+
+#project-textfield {
+  background: #000000;
+  color: white;
+}
+
+#email-field {
+  width: 300px;
+}
+
+#company-name-field {
+  width: 300px;
+}
+
+#first-name-field {
+  width: 145px;
+  margin-right: 10px;
+}
+
+#last-name-field {
+  width: 145px;
+}
+
+.form-fields {
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
+
 .orange-flat-button {
   position: relative;
   vertical-align: top;
@@ -111,63 +145,63 @@ html, body { overflow: hidden; }
 }
  
 #click-bar {
-    font-family: sans-serif; 
-    font-weight: bold;
-    letter-spacing: -0.05em;
-    border: ridge;
-    background: linear-gradient(to bottom, #757575, #4D4D4D);
-    border-color: black;
-    border-width: 1.5px;
-    color: white;
-    height: 27px;
-    width: 100%;
-    text-align: center;
-    padding-top:7px;
+  font-family: sans-serif; 
+  font-weight: bold;
+  letter-spacing: -0.05em;
+  border: ridge;
+  background: linear-gradient(to bottom, #757575, #4D4D4D);
+  border-color: black;
+  border-width: 1.5px;
+  color: white;
+  height: 27px;
+  width: 100%;
+  text-align: center;
+  padding-top:7px;
 }
 
 #map-canvas { 
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 #un_peu_tard{
-    color: #E4C126;
+  color: #E4C126;
 }
 
 #trop_tard{
-    color: #D80821;
+  color: #D80821;
 }
 
 #parfait{
-    color: #07B418;
+  color: #07B418;
 }
 
 #tres_tot{
-    color: #3ca9d0;
+  color: #3ca9d0;
 }
 
 html { 
-    height: 100%; 
-    width: 100%; 
+  height: 100%; 
+  width: 100%; 
 }
 
 body { 
-    height: 100%; 
-    margin: 0; 
-    padding: 0;
+  height: 100%; 
+  margin: 0; 
+  padding: 0;
 }
 
 #about { 
-    z-index: 9000;
-    position: absolute; 
-    right: 25px; 
-    top: 140px; 
-    background: #eee; 
-    font-family: sans-serif; 
-    width: 302px; 
-    padding: 1em; 
-    opacity: 0.85;
-    filter: alpha(opacity=85);
+  z-index: 9000;
+  position: absolute; 
+  right: 25px; 
+  top: 140px; 
+  background: #eee; 
+  font-family: sans-serif; 
+  width: 302px; 
+  padding: 1em; 
+  opacity: 0.85;
+  filter: alpha(opacity=85);
 }
 
 #stop_head_text {
@@ -178,9 +212,7 @@ body {
 #stop_head {
   height: 50px;
   background: black;
-  /*#margin-bottom: 10px;*/
   padding-top: 10px;
-  /*overflow-Y:auto;*/
   z-index: 9000; 
   position: absolute; 
   right: 25px; 
@@ -193,20 +225,20 @@ body {
 }
 
 #stop_list { 
-    border: solid;
-    border-width: 1px;
-    height: 350px;
-    overflow-Y:auto;
-    z-index: 9000;
-    position: absolute; 
-    right: 25px; 
-    top: 252.4px; 
-    background: #eee; 
-    font-family: sans-serif; 
-    width: 300px; 
-    padding: 1em; 
-    opacity: 0.85;
-    filter: alpha(opacity=85);
+  border: solid;
+  border-width: 1px;
+  height: 350px;
+  overflow-Y:auto;
+  z-index: 9000;
+  position: absolute; 
+  right: 25px; 
+  top: 252.4px; 
+  background: #eee; 
+  font-family: sans-serif; 
+  width: 300px; 
+  padding: 1em; 
+  opacity: 0.85;
+  filter: alpha(opacity=85);
 }
 
 #bus-suggestion-text {
@@ -223,14 +255,10 @@ body {
   top: 40px; 
   background: #eee; 
   font-family: 'Sonsie One', cursive;
-  /*font-family: sans-serif; */
   width: 170px; 
   padding: 1em; 
   opacity: 0.65;
   filter: alpha(opacity=65);
-  /*position: relative;
-  vertical-align: top;
-  width: 100%;*/
   height: 40px;
   padding: 0;
   font-size: 22px;
@@ -257,7 +285,8 @@ body {
 }
 
 #modal {
-  top: 150px;
+  z-index: 9000;
+  top: 90px;
   position:absolute;
   background:url(images/tint20.png) 0 0 repeat;
   background:rgba(0,0,0,0.2);
@@ -266,10 +295,11 @@ body {
 }
 
 #content {
-  width: 500px;
-  height: 300px;
+  width: 350px;
+  height: 480px;
   border-radius:8px;
   background:#fff;
+  background:black;
   padding:20px;
 }
 
@@ -288,4 +318,37 @@ body {
   text-align: center;
   padding-top: 110px;
   font-size: 44px;
+}
+
+#submit-container {
+  padding-left: 18px;
+}
+
+#submit-button {
+  font-family: 'Sonsie One', cursive;
+  font-size: 18px;
+  width: 250px;
+  height: 50px;
+}
+
+#hire-form-text {
+  padding:12px;
+  text-align: center;
+  margin-bottom:10px;
+  font-size: 20px;
+  font-family: sans-serif, cursive;
+  background: orange;
+}
+
+#form-container {
+  background: orange;
+  padding: 10px;
+}
+
+#description-form-text {
+  color: white;
+  text-align: center;
+  margin-bottom:12px;
+  font-size: 10px;
+  font-family: sans-serif, cursive;
 }
