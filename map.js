@@ -192,7 +192,7 @@ MapObject.mainText = function() {
     var msg_text = "This is a live map of the buses for Atlanta's MARTA system.";
 
     if(typeof that.bus_var !== 'undefined')
-        msg_text += '<br /><br /><div><a href="/martaBusTracker/">Return to main map.</a></div>';
+        msg_text += '<br /><br /><div><a class="return-link" href="/martaBusTracker/">Return to main map.</a></div>';
 
     return msg_text;
 }
@@ -345,7 +345,7 @@ MapObject.drawStops = function (stop_data, callback){
 
         var selector_name = 'stop-' + size;
 
-        stop_text = '<div id="' + selector_name + '"><a href="#">Stop #' + size + '</a>: <br />Stop name: ' + stopMarker.title;
+        stop_text = '<div id="' + selector_name + '"><a class="stop-link" href="#">Stop #' + size + '</a>: <br />Stop name: ' + stopMarker.title;
         stop_text += '<div>Arrival time : ' + stopMarker.arrival_time + '.</div></div>';
 
         $("#stop_list").append(stop_text);
@@ -517,4 +517,3 @@ MapObject.cleanseBuses = function () {
         }
     });
 }
-

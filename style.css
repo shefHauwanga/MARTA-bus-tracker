@@ -368,6 +368,18 @@ body {
   font-family: sans-serif, cursive;
 }
 
-.normal-link {
+a.normal-link {
   text-decoration:none;
+}
+
+a.stop-link {
+  color: #4097ED;
+}
+
+a {
+  color: orange;
+}
+
+a.return-link {
+  color: #4097ED;
 }
