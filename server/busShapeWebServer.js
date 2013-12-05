@@ -48,6 +48,7 @@ webServer.createServer(function(request, response) {
 
                             individual_stop_data['arrival_time'] = stop_with_time.arrival_time;
                             individual_stop_data['departure_time'] = stop_with_time.departure_time;
+                            individual_stop_data['sequence_num'] = stop_with_time.stop_sequence;
                             individual_stop_data['name'] = stop[0].stop_name;
                             individual_stop_data['lat'] = stop[0].stop_lat;
                             individual_stop_data['lon'] = stop[0].stop_lon;
@@ -58,6 +59,7 @@ webServer.createServer(function(request, response) {
                         });
                     }, function(err){
                         bus_route_data['stops'] = stop_data;
+                        stop_data.sort(function(value1, value2) {return value1.sequence_num - value2.sequence_num});
 
                         callback();
                     });
