@@ -18,27 +18,40 @@ webServer.createServer(function(request, response) {
         var current_second = current_time.getSeconds();
         var a_o_p = current_time.getHours() < 12 || current_time.getHours() === 24 ? "AM" : "PM";
         var time_re = new RegExp("(\d{2}):(\d{2}):(\d{2})\s(AM|PM)/");
+        var stops = [];
         var current_stop = "0";
 
         async.series([
             function(callBack){
                 db.stop_times.find({trip_id: query_data.time_id}).sort({stop_sequence:1}, function(err, stops_with_time){
                     async.forEach(stops_with_time, function(stop_with_time, innerCallback) {
-                        time_captures = stop_with_time.match(re);
-
-                        if(time_captures[4] !== a_o_p) {
-                            if(a_o_p === "PM")
-                                current_stop = stop_with_time.stop_id;
-                        } else if(parseInt(time_captures[1]) > current_hour) {
-                            current_stop = stop_with_time.stop_id;
-                        } else if(parseInt(time_captures[2]) > current_minutes) {
-                            current_stop = stop_with_time.stop_id;
-                        } else if(parseInt(time_captures[3]) > current_second) {
-                            current_stop = stop_with_time.stop_id;
-                        }
+                        stops.push(stop_with_time);
 
                         innerCallback();
                     }, function(err){
+                        stops.sort(function(value1, value2) {return value1.stop_sequence - value2.stop_sequence});
+                        found = false;
+                        for(var i = 0; i < stops.length; i++){
+                            if(!found){
+                                time_captures = stops.arrival_time.match(re);
+
+                                if(time_captures[4] !== a_o_p) {
+                                    if(a_o_p === "PM"){
+                                        current_stop = stop_with_time.stop_id;
+                                        found = true;
+                                    }
+                                } else if(parseInt(time_captures[1]) > current_hour) {
+                                    current_stop = stop_with_time.stop_id;
+                                    found = true;
+                                } else if(parseInt(time_captures[2]) > current_minutes) {
+                                    current_stop = stop_with_time.stop_id;
+                                    found = true;
+                                } else if(parseInt(time_captures[3]) > current_second) {
+                                    current_stop = stop_with_time.stop_id;
+                                    found = true;
+                                } 
+                            }
+                        }
                         callback();
                     });
                 });
