@@ -90,7 +90,6 @@ MapObject.initialize = function () {
     });
 }
 
-
 MapObject.menuDrop = function () {
     var change;
     var that = this;
@@ -123,69 +122,71 @@ MapObject.getURLParameter = function (sParam){
  Creates a new bus object.
  */
 MapObject.initBus = function (busData) {
-    var busPosition = new google.maps.LatLng(busData.latitude, busData.longitude);
-    var image;
-    var color;
-    var that = this;
+    if(busData.trip !== "0") {
+        var busPosition = new google.maps.LatLng(busData.latitude, busData.longitude);
+        var image;
+        var color;
+        var that = this;
 
-    if(busData.adherence < 0){
-        if(busData.adherence >= -2)
-            color = 'FFFF00';
-        else 
-            color = 'FF0000';
-    } else {
-        if(busData.adherence > 0)
-            color = '4097ED';
-        else
-            color = '00FF00'
-    }
-
-    image = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + busData.id + '|' + color;
-
-    var busMarker = new google.maps.Marker({
-        position: busPosition,
-        nextStop: busData.nextStop, //So a time point isn't just a stop, but
-        routeNumber: busData.route,
-        trip: busData.trip,
-        lateness: busData.adherence,
-        busDirection: busData.direction,
-        busColor: color,
-        icon: image,
-        id: busData.id,
-        map: that.atlMap 
-    });
-
-    google.maps.event.addListener(busMarker, 'mouseover', function() {
-        var text = '<div id=\"bus_data\">';
-        text += "This is bus #" + busMarker.id + " on route #" + busMarker.routeNumber + "<br />";
-
-        if(parseInt(busMarker.lateness) < 0){
-            if(parseInt(busMarker.lateness) >= -2)
-                text += "<span id=\"un_peu_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minute(s) late.</span><br />';
-            else
-                text += "<span id=\"trop_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minutes late.</span><br />';
+        if(busData.adherence < 0){
+            if(busData.adherence >= -2)
+                color = 'FFFF00';
+            else 
+                color = 'FF0000';
         } else {
-            if(parseInt(busMarker.lateness) > 0) 
-                text += '<span id="tres_tot">This bus is running ' + busMarker.lateness + ' minute(s) early</span>.<br />';
+            if(busData.adherence > 0)
+                color = '4097ED';
             else
-                text += '<span id="parfait">This bus is running on time</span>.<br />';
+                color = '00FF00'
         }
 
-        text += 'Next stop: ' + busMarker.nextStop + '.<br />';
-        text += '</div>';
+        image = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + busData.id + '|' + color;
 
-        $("#about").html(text);
-    });
+        var busMarker = new google.maps.Marker({
+            position: busPosition,
+            nextStop: busData.nextStop, //So a time point isn't just a stop, but
+            routeNumber: busData.route,
+            trip: busData.trip,
+            lateness: busData.adherence,
+            busDirection: busData.direction,
+            busColor: color,
+            icon: image,
+            id: busData.id,
+            map: that.atlMap 
+        });
 
-    google.maps.event.addListener(busMarker, 'mouseout', function() {
-        $("#about").html(that.mainText());
-    });
+        google.maps.event.addListener(busMarker, 'mouseover', function() {
+            var text = '<div id=\"bus_data\">';
+            text += "This is bus #" + busMarker.id + " on route #" + busMarker.routeNumber + "<br />";
 
-    google.maps.event.addListener(busMarker, 'click', function() {
-        that.populateInfoBar(busMarker);
-    });
+            if(parseInt(busMarker.lateness) < 0){
+                if(parseInt(busMarker.lateness) >= -2)
+                    text += "<span id=\"un_peu_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minute(s) late.</span><br />';
+                else
+                    text += "<span id=\"trop_tard\">This bus is running " + Math.abs(parseInt(busMarker.lateness)) + ' minutes late.</span><br />';
+            } else {
+                if(parseInt(busMarker.lateness) > 0) 
+                    text += '<span id="tres_tot">This bus is running ' + busMarker.lateness + ' minute(s) early</span>.<br />';
+                else
+                    text += '<span id="parfait">This bus is running on time</span>.<br />';
+            }
 
-    that.busCollection[busData.id] = busMarker;
+            text += 'Next stop: ' + busMarker.nextStop + '.<br />';
+            text += '</div>';
+
+            $("#about").html(text);
+        });
+
+        google.maps.event.addListener(busMarker, 'mouseout', function() {
+            $("#about").html(that.mainText());
+        });
+
+        google.maps.event.addListener(busMarker, 'click', function() {
+            that.populateInfoBar(busMarker);
+        });
+
+        that.busCollection[busData.id] = busMarker;
+    }
 }
 
 MapObject.mainText = function() {
@@ -393,35 +394,39 @@ MapObject.queueBuses = function (){
                 if(that.busCollection[obj.id] === undefined) {
                     that.initBus(obj);
                 } else {
-                    if((obj.latitude !== that.busCollection[obj.id].getPosition().lat().toString()) ||
-                       (obj.longitude !== that.busCollection[obj.id].getPosition().lng().toString())) {
-                        that.busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
-                    }
-
-                    that.busCollection[obj.id].nextStop = obj.nextStop;
-                    that.busCollection[obj.id].routeNumber = obj.route;
-                    that.busCollection[obj.id].lateness = obj.adherence;
-                    that.busCollection[obj.id].busDirection = obj.direction;
-                    that.busCollection[obj.id].trip = obj.trip;
-                    that.busCollection[obj.id].modDate = Date.now();
-
-                    color = 'FFFF00';
-
-                    if(obj.adherence < 0){
-                        if(obj.adherence >= -2)
-                            color = 'FFFF00';
-                        else 
-                            color = 'FF0000';
+                    if(obj.trip === "0") {
+                        that.removeBus(obj.id);
                     } else {
-                        if(obj.adherence > 0)
-                            color = '4097ED';
-                        else
-                            color = '00FF00'
+                        if((obj.latitude !== that.busCollection[obj.id].getPosition().lat().toString()) ||
+                           (obj.longitude !== that.busCollection[obj.id].getPosition().lng().toString())) {
+                            that.busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
+                        }
+
+                        that.busCollection[obj.id].nextStop = obj.nextStop;
+                        that.busCollection[obj.id].routeNumber = obj.route;
+                        that.busCollection[obj.id].lateness = obj.adherence;
+                        that.busCollection[obj.id].busDirection = obj.direction;
+                        that.busCollection[obj.id].trip = obj.trip;
+                        that.busCollection[obj.id].modDate = Date.now();
+
+                        color = 'FFFF00';
+
+                        if(obj.adherence < 0){
+                            if(obj.adherence >= -2)
+                                color = 'FFFF00';
+                            else 
+                                color = 'FF0000';
+                        } else {
+                            if(obj.adherence > 0)
+                                color = '4097ED';
+                            else
+                                color = '00FF00'
+                        }
+
+                        that.busCollection[obj.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + obj.id + '|' + color;
+
+                        that.busCollection[obj.id].busColor = color;
                     }
-
-                    that.busCollection[obj.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + obj.id + '|' + color;
-
-                    that.busCollection[obj.id].busColor = color;
                 }
             });
             $('#bus-search-field').autocomplete({
@@ -515,4 +520,11 @@ MapObject.cleanseBuses = function () {
     setTimeout(function() {
         that.cleanseBuses();
     }, that.cleanseInterval);
+}
+
+MapObject.removeBus  = function (busId) {
+    var that = this;
+
+     that.busCollection[busId].setMap(null);
+     delete that.busCollection[busId];
 }
