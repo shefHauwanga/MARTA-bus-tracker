@@ -73,6 +73,7 @@ MapObject.initialize = function () {
     }
 
     that.queueBuses();
+    that.cleanseBuses();
 
     $('#click-bar').click(function() {
         MapObject.menuDrop()
@@ -244,8 +245,6 @@ MapObject.populateInfoBar = function (busData){
 
 
 MapObject.queueRoute = function (){
-    
-
     MapObject.mapModal.open({content: '<div id="loading-screen">Loading...</div>'});
 
     var opts = {
