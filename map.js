@@ -437,10 +437,6 @@ MapObject.queueBuses = function (){
     setTimeout(function() {
         that.queueBuses();
     }, that.updateInterval);
-
-    setTimeout(function() {
-        that.cleanseBuses();
-    }, that.cleanseInterval);
 }
 
 MapObject.mapModal = (function() {
@@ -516,4 +512,8 @@ MapObject.cleanseBuses = function () {
            delete that.busCollection[key];
         }
     });
+
+    setTimeout(function() {
+        that.cleanseBuses();
+    }, that.cleanseInterval);
 }
