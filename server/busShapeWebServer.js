@@ -45,6 +45,7 @@ webServer.createServer(function(request, response) {
                     async.forEach(stops_with_time, function(stop_with_time, inner_callback) {
                         db.stops.find({stop_id: stop_with_time.stop_id}, function(err, stop){
                             var individual_stop_data = {};
+                            console.log(stop_with_time.stop_sequence);
 
                             individual_stop_data['arrival_time'] = stop_with_time.arrival_time;
                             individual_stop_data['departure_time'] = stop_with_time.departure_time;
