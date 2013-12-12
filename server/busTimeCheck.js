@@ -14,13 +14,13 @@ webServer.createServer(function(request, response) {
     if(query_data.time_id && query_data.bus_id){
         var current_time = new Date();
         var current_hour = current_time.getHours() % 12 !== 0 ? current_time.getHours() % 12 : current_time.getHours() === 12 ? 12 : 0;
-        var current_minute = current_time.getMinutes();
+        var current_minutes = current_time.getMinutes();
         var current_second = current_time.getSeconds();
         var a_o_p = current_time.getHours() < 12 || current_time.getHours() === 24 ? "AM" : "PM";
-        var time_re = new RegExp("(\\d{2}):(\\d{2}):(\\d{2})\\s(\\S{2})");
+        var time_re = new RegExp("(\\d{1,2}):(\\d{1,2}):(\\d{1,2})\\s(\\S{1,2})");
         var stop_data;
         var stops = [];
-        var current_stop;
+        var next_stop;
         var current_name;
         
 
@@ -37,38 +37,42 @@ webServer.createServer(function(request, response) {
                         found = false;
 
                         for(var i = 0; i < stops.length; i++){
-                            time_captures = stops[i].arrival_time.match(time_re);
-                          
                             if(!found){
                                 time_captures = stops[i].arrival_time.match(time_re);
 
                                 if(time_captures[4] !== a_o_p) {
                                     if(a_o_p === "PM"){
-                                        current_stop = stops[i].stop_id;
+                                        next_stop = stops[i].stop_id;
                                         found = true;
                                     }
                                 } else if(parseInt(time_captures[1]) > current_hour) {
-                                    current_stop = stops[i].stop_id;
+                                    next_stop = stops[i].stop_id;
                                     found = true;
-                                } else if(parseInt(time_captures[2]) > current_minutes) {
-                                    current_stop = stops[i].stop_id;
-                                    found = true;
-                                } else if(parseInt(time_captures[3]) > current_second) {
-                                    current_stop = stops[i].stop_id;
-                                    found = true;
-                                } 
+                                } else if(parseInt(time_captures[1]) === current_hour) {
+                                    if(parseInt(time_captures[2]) > current_minutes) {
+                                        next_stop = stops[i].stop_id;
+                                        found = true;
+                                    } else if(parseInt(time_captures[2]) === current_minutes) {
+                                        if(parseInt(time_captures[3]) > current_second) {
+                                            next_stop = stops[i].stop_id;
+                                            found = true;
+                                        } 
+                                    }
+                                }
                             }
                         }
 
-                        if(!found)
-                            current_stop = stops[0].stop_id;
+                        if(!found){
+                            next_stop = stops[0].stop_id;
+                            time_captures = stops[0].arrival_time.match(time_re);
+                        }
 
                         callback();
                     });
                 });
             }, 
             function(callback){
-                db.stops.find({stop_id: current_stop}, function(err, stop){
+                db.stops.find({stop_id: next_stop}, function(err, stop){
                     current_name = stop[0].stop_name;
                     callback();
                 });
@@ -80,15 +84,15 @@ webServer.createServer(function(request, response) {
                 });
             },
             function(callback){
-                current_stop_time = (parseInt(stop_data['adherence']) + parseInt(time_captures[2])) % 60 !== 0 ? 
-                  time_captures[1] + ':' + (parseInt(stop_data['adherence']) + parseInt(time_captures[2])) + ':' + time_captures[3] + ' ' + a_o_p
+                next_stop_time = (Math.abs(parseInt(stop_data['adherence']) - parseInt(time_captures[2]))) % 60 !== 0 ? 
+                  time_captures[1] + ':' + (Math.abs(parseInt(stop_data['adherence']) - parseInt(time_captures[2]))) + ':' + time_captures[3] + ' ' + a_o_p
                     :
                     (function(){
-                        if (parseInt(stop_data['adherence']) + parseInt(time_captures[2]) >= 60) {
-                           new_minutes = (parseInt(stop_data['adherence']) + parseInt(time_captures[2])) % 60;
+                        if (Math.abs(parseInt(stop_data['adherence']) - parseInt(time_captures[2])) >= 60) {
+                           new_minutes = (parseInt(stop_data['adherence']) - parseInt(time_captures[2])) % 60;
                            new_hr = parseInt(time_captures[1]) + 1 < 13 ? parseInt(time_captures[1]) + 1 : 1;
-                        } else if (parseInt(stop_data['adherence']) + parseInt(time_captures[2]) < 0) {
-                           new_minutes = 60 - parseInt(stop_data['adherence']);
+                        } else if (parseInt(stop_data['adherence']) - parseInt(time_captures[2]) < 0) {
+                           new_minutes = (Math.abs(60 + parseInt(stop_data['adherence']))) % 60;
                            new_hr = parseInt(time_captures[1]) - 1 > 0 ? parseInt(time_captures[1]) - 1 : 12;
                         } else {
                            new_minutes = time_captures[2];
@@ -103,8 +107,8 @@ webServer.createServer(function(request, response) {
 
             var stop_data = {
                 name: current_name,
-                time: current_stop_time,
-                id: current_stop
+                time: next_stop_time,
+                id: next_stop
             };
 
             var headers = {
