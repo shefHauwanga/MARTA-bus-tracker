@@ -207,9 +207,22 @@ MapObject.populateInfoBar = function (busData){
     var text;
     var that = this;
 
+    function getStopData(){
+        console.log('helper.php?time_id=' + busData.trip + '&bus_id=' + busData.id);
+        $.ajax({
+            "url": 'helper.php?time_id=' + busData.trip + '&bus_id=' + busData.id,
+            "dataType": "json", 
+            "type": "GET",
+            "success": function (response) {
+                console.log(response);
+                console.log(response.name + ' @ ' + response.time);
+                $('#next-stop-data').html(response.name + ' @ ' + response.time);
+            }
+        });
+    }
+
     if($('#info-bar').css('display') === 'none') {
         that.menuDrop();
-        /*$('#info-bar').slideToggle("slow");*/
     }        
 
     that.atlMap.setZoom(14);
@@ -217,7 +230,7 @@ MapObject.populateInfoBar = function (busData){
 
     text = '<div id="bus-num">Bus# ' + busData.id + '.</div>';
     text += '<div id="bus-route">On route# ' + busData.routeNumber + '.</div>';
-    text += '<div id="next-stop">Next stop: ' + busData.nextStop + '.</div>';
+    text += '<div id="next-stop">Next stop: <span id="next-stop-data">Loading...</span>.</div>';
     text += '<div id="bus-direction">Heading ' + busData.busDirection + '.</div>';
     text += '<div id="bus-adherence">';
 
@@ -242,6 +255,7 @@ MapObject.populateInfoBar = function (busData){
     }
 
     $("#bus-info").html(text);
+    getStopData();
 }
 
 
@@ -389,46 +403,57 @@ MapObject.queueBuses = function (){
         "dataType": "json", 
         "type": "GET",
         "success": function (response) {
-            $.each(response, function(index, obj) {
-                busNum.push(obj.id);
-                if(that.busCollection[obj.id] === undefined) {
-                    that.initBus(obj);
+            busNum = [];
+
+            setTimeout(function setBus(cur_place) {
+                cur_place = cur_place || 0;
+                var bus = response[cur_place]
+                busNum.push(bus.id);
+                if(that.busCollection[bus.id] === undefined) {
+                    that.initBus(bus);
                 } else {
-                    if(obj.trip === "0") {
-                        that.removeBus(obj.id);
-                    } else {
-                        if((obj.latitude !== that.busCollection[obj.id].getPosition().lat().toString()) ||
-                           (obj.longitude !== that.busCollection[obj.id].getPosition().lng().toString())) {
-                            that.busCollection[obj.id].moveAnimation(new google.maps.LatLng(obj.latitude, obj.longitude));
-                        }
-
-                        that.busCollection[obj.id].nextStop = obj.nextStop;
-                        that.busCollection[obj.id].routeNumber = obj.route;
-                        that.busCollection[obj.id].lateness = obj.adherence;
-                        that.busCollection[obj.id].busDirection = obj.direction;
-                        that.busCollection[obj.id].trip = obj.trip;
-                        that.busCollection[obj.id].modDate = Date.now();
-
-                        color = 'FFFF00';
-
-                        if(obj.adherence < 0){
-                            if(obj.adherence >= -2)
-                                color = 'FFFF00';
-                            else 
-                                color = 'FF0000';
-                        } else {
-                            if(obj.adherence > 0)
-                                color = '4097ED';
-                            else
-                                color = '00FF00'
-                        }
-
-                        that.busCollection[obj.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + obj.id + '|' + color;
-
-                        that.busCollection[obj.id].busColor = color;
+                    if((bus.latitude !== that.busCollection[bus.id].getPosition().lat().toString()) ||
+                           (bus.longitude !== that.busCollection[bus.id].getPosition().lng().toString())) {
+                            that.busCollection[bus.id].moveAnimation(new google.maps.LatLng(bus.latitude, bus.longitude));
                     }
+
+                    that.busCollection[bus.id].nextStop = bus.nextStop;
+                    that.busCollection[bus.id].routeNumber = bus.route;
+                    that.busCollection[bus.id].lateness = bus.adherence;
+                    that.busCollection[bus.id].busDirection = bus.direction;
+                    that.busCollection[bus.id].trip = bus.trip;
+                    that.busCollection[bus.id].modDate = Date.now();
+
+                    color = 'FFFF00';
+
+                    if(bus.adherence < 0){
+                        if(bus.adherence >= -2)
+                            color = 'FFFF00';
+                        else 
+                            color = 'FF0000';
+                    } else {
+                        if(bus.adherence > 0)
+                            color = '4097ED';
+                        else
+                            color = '00FF00'
+                    }
+
+                    that.busCollection[bus.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + bus.id + '|' + color;
+
+                    that.busCollection[bus.id].busColor = color;
                 }
-            });
+                    
+                if(cur_place < response.length -1 ){
+                    cur_place++;
+                    setTimeout(function() {
+                        setBus(cur_place);
+                    }, 0);
+                } else {
+                    setTimeout(function() { 
+                        that.queueBuses();
+                    }, that.updateInterval);
+                }
+             }, 0);
             $('#bus-search-field').autocomplete({
                 source: busNum
             });
@@ -437,10 +462,6 @@ MapObject.queueBuses = function (){
             $("#about").html("<div id=\"queue_problem\">There is a problem with queueing.<br /><br />" + xhr.status + "</div>");
         }
     });
-
-    setTimeout(function() {
-        that.queueBuses();
-    }, that.updateInterval);
 }
 
 MapObject.mapModal = (function() {
