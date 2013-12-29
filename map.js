@@ -403,7 +403,6 @@ MapObject.queueBuses = function (){
         "dataType": "json", 
         "type": "GET",
         "success": function (response) {
-            busNum = [];
 
             setTimeout(function setBus(cur_place) {
                 cur_place = cur_place || 0;
