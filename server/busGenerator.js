@@ -2,6 +2,7 @@ var async = require('async');
 var restRequest = require('restler');
 var redis = require("redis");
 var client = redis.createClient();
+var second_client = redis.createClient();
 var martaDataURI = "http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetAllBus";
 var updateInterval = 10 * 1000;
 var count = 1;
@@ -60,6 +61,8 @@ async.forever(
 
                                 if(busInfo.TRIPID !== bus_data.trip)
                                     bus_data.trip = busInfo.TRIPID;
+
+                                second_client.publish('bus_channel', JSON.stringify(bus_data));
                             }
                         }
                         

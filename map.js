@@ -398,6 +398,43 @@ MapObject.queueBuses = function (){
     var busNum = []
     var color;
 
+    function renderBus(bus){
+        busNum.push(bus.id);
+        if(that.busCollection[bus.id] === undefined) {
+            that.initBus(bus);
+        } else {
+            if((bus.latitude !== that.busCollection[bus.id].getPosition().lat().toString()) ||
+                (bus.longitude !== that.busCollection[bus.id].getPosition().lng().toString())) {
+                 that.busCollection[bus.id].moveAnimation(new google.maps.LatLng(bus.latitude, bus.longitude));
+            }
+
+            that.busCollection[bus.id].nextStop = bus.nextStop;
+            that.busCollection[bus.id].routeNumber = bus.route;
+            that.busCollection[bus.id].lateness = bus.adherence;
+            that.busCollection[bus.id].busDirection = bus.direction;
+            that.busCollection[bus.id].trip = bus.trip;
+            that.busCollection[bus.id].modDate = Date.now();
+
+            color = 'FFFF00';
+
+            if(bus.adherence < 0){
+                if(bus.adherence >= -2)
+                    color = 'FFFF00';
+                else 
+                    color = 'FF0000';
+            } else {
+                if(bus.adherence > 0)
+                    color = '4097ED';
+                else
+                    color = '00FF00'
+            }
+
+            that.busCollection[bus.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + bus.id + '|' + color;
+
+            that.busCollection[bus.id].busColor = color;
+        }
+    }
+
     $.ajax({
         "url": that.call_sign,
         "dataType": "json", 
@@ -407,40 +444,8 @@ MapObject.queueBuses = function (){
             setTimeout(function setBus(cur_place) {
                 cur_place = cur_place || 0;
                 var bus = response[cur_place]
-                busNum.push(bus.id);
-                if(that.busCollection[bus.id] === undefined) {
-                    that.initBus(bus);
-                } else {
-                    if((bus.latitude !== that.busCollection[bus.id].getPosition().lat().toString()) ||
-                           (bus.longitude !== that.busCollection[bus.id].getPosition().lng().toString())) {
-                            that.busCollection[bus.id].moveAnimation(new google.maps.LatLng(bus.latitude, bus.longitude));
-                    }
-
-                    that.busCollection[bus.id].nextStop = bus.nextStop;
-                    that.busCollection[bus.id].routeNumber = bus.route;
-                    that.busCollection[bus.id].lateness = bus.adherence;
-                    that.busCollection[bus.id].busDirection = bus.direction;
-                    that.busCollection[bus.id].trip = bus.trip;
-                    that.busCollection[bus.id].modDate = Date.now();
-
-                    color = 'FFFF00';
-
-                    if(bus.adherence < 0){
-                        if(bus.adherence >= -2)
-                            color = 'FFFF00';
-                        else 
-                            color = 'FF0000';
-                    } else {
-                        if(bus.adherence > 0)
-                            color = '4097ED';
-                        else
-                            color = '00FF00'
-                    }
-
-                    that.busCollection[bus.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + bus.id + '|' + color;
-
-                    that.busCollection[bus.id].busColor = color;
-                }
+                
+                renderBus(bus);
                     
                 if(cur_place < response.length -1 ){
                     cur_place++;
@@ -448,9 +453,10 @@ MapObject.queueBuses = function (){
                         setBus(cur_place);
                     }, 0);
                 } else {
-                    setTimeout(function() { 
-                        that.queueBuses();
-                    }, that.updateInterval);
+                    var socket = io.connect('http://localhost:8891');
+                        socket.on('bus_move', function (data) {
+                            renderBus(JSON.parse(data));
+                        });
                 }
              }, 0);
             $('#bus-search-field').autocomplete({
