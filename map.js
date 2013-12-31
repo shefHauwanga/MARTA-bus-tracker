@@ -430,7 +430,6 @@ MapObject.queueBuses = function (){
             }
 
             that.busCollection[bus.id].icon = 'http://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bus|bbT|' + bus.id + '|' + color;
-
             that.busCollection[bus.id].busColor = color;
         }
     }
