@@ -1,0 +1,47 @@
+.scrollbox {
+  border:1px solid #ffffff;
+  overflow:auto;
+}
+
+.footer-hire {
+  background: #ffffff;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.sheefeni-text-1 {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.bottom-footer {
+  background: #ffffff;
+}
+
+.pager-bottom {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.pagnator-outer {
+  padding: 5px 0px 5px 0px;
+  margin: 0px 0px 0px 0px;
+  background: #ffffff;
+}
+
+.pagnator-inner {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.bus-semi-late {
+}
+
+.bus-late {
+}
+
+.bus-early {
+}
+
+.bus-on-time {
+}

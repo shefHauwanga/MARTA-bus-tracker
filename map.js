@@ -442,7 +442,7 @@ MapObject.queueBuses = function (){
 
             setTimeout(function setBus(cur_place) {
                 cur_place = cur_place || 0;
-                var bus = response[cur_place]
+                var bus = response[cur_place];
                 
                 renderBus(bus);
                     

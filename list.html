@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>List of MARTA's currently running buses</title>
+    <link rel="stylesheet" href="frontend/bootstrap/css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="frontend/css/style.css" type="text/css"/>
+  </head>
+  <body>
+    <script type="text/x-handlebars" data-template-name="list">
+    </script>
+    <div class="container">
+      <div class="panel panel-default row">
+        <div class="col-xs-12 panel-body">
+          <h1 class="text-center">List of MARTA's currently running buses</h1>
+        </div>
+        <div class="btn-group col-xs-12 panel-footer">
+          <button type="button" class="active col-xs-6 btn btn-warning">List</button>
+          <button type="button" class="col-xs-6 btn btn-default">Map</button>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">Enter a bus number</span>
+          <input type="text" class="form-control" placeholder="Search for a bus">
+        </div>
+        <div class="list-group scrollbox">
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #1</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #2</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #3</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #4</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #5</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #6</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #7</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #8</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #9</h4>
+          </a>
+          <a href="#" class="list-group-item col-xs-12">
+            <h4 class="list-group-item-heading">Bus #10</h4>
+          </a>
+        </div>
+        <div class="panel-footer footer-hire">
+          <p class="text-center sheefeni-text-1"><a href="#">Hire me</a></p>
+        </div>
+        <div class="panel-footer pagnator-outer">
+          <ul class="pager pagnator-inner">
+            <li><a href="#">&larr; Previous</a></li>
+            <li><a href="#">Next &rarr;</a></li>
+          </ul>
+        </div>
+        <div class="panel-footer bottom-footer">
+        <ul class="pager pager-bottom">
+        <li>
+          <iframe src="http://ghbtns.com/github-btn.html?user=shefHauwanga&repo=MARTA-bus-tracker&type=watch"
+  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
+        </li>
+        <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.shefcookscode.com" data-text="A live map of Atlanta's MARTA system" data-via="Shef_Hauwanga" data-count="none">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+        <li>
+          <script src="//platform.linkedin.com/in.js" type="text/javascript">
+            lang: en_US
+          </script>
+          <script type="IN/Share" data-url="http://www.shefcookscode.com/martaBus/list.html"></script>
+        </li>
+        </ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="frontend/js/libs/jquery-1.10.2.min.js"></script>
+    <script src="frontend/js/libs/handlebars-1.0.0.js"></script>
+    <script src="frontend/js/libs/ember.js"></script>
+    <script src="frontend/js/libs/ember-data.js"></script>
+
+    <script src="frontend/js/application.js"></script>
+    <script src="frontend/js/router.js"></script>
+    <script src="frontend/js/models/bus.js"></script>
+  </body>
+</html>
