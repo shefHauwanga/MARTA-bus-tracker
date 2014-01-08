@@ -7,17 +7,25 @@
     <link rel="stylesheet" href="frontend/css/style.css" type="text/css"/>
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=485700618166724";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
     <script type="text/x-handlebars" data-template-name="list">
     </script>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <a class="navbar-brand" href="#">AtlantaLiveMap</a>
-      <div class="container input-group navbar-btn">
-        <span class="input-group-addon">Enter your bus number</span>
+      <div class="container col-xs-9 input-group navbar-btn">
+        <span class="input-group-addon">Enter a bus #</span>
         <input type="text" class="form-control" placeholder="Bus Number">
       </div>
     </nav>
     <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-      <p class="text-center"><a href="#">Hire me</a></p>
       <ul class="pager pager-bottom">
         <li>
           <iframe src="http://ghbtns.com/github-btn.html?user=shefHauwanga&repo=MARTA-bus-tracker&type=watch"
@@ -25,13 +33,13 @@
         </li>
         <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.shefcookscode.com" data-text="A live map of Atlanta's MARTA system" data-via="Shef_Hauwanga" data-count="none">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
-        <li>
-          <script src="//platform.linkedin.com/in.js" type="text/javascript">
-            lang: en_US
-          </script>
-          <script type="IN/Share" data-url="http://www.shefcookscode.com/martaBus/list.html"></script>
-        </li>
       </ul>
+      <div class="btn-group-shef-wrap">
+        <div class="btn-group">
+          <button type="button" class="btn btn-default">Hire me!</button>
+          <button type="button" class="btn btn-default">shefcookscode.com</button>
+        </div>
+      </div>
     </nav>
     <div class="container">
       <div class="panel panel-default row">
@@ -43,59 +51,63 @@
           <button type="button" class="col-xs-6 btn btn-default">Map</button>
         </div>
         <div class="list-group scrollbox">
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-on-time">
             <h4 class="list-group-item-heading">Bus #1</h4>
+            Running on time. On route #2910.<br />
+            Heading: Northeast.  Next Stop: Lincon and smith.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-semi-late">
             <h4 class="list-group-item-heading">Bus #2</h4>
+            Running 1 minute late. On route #2912.<br />
+            Heading: Northwest.  Next Stop: Peachtree Battle.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-late">
             <h4 class="list-group-item-heading">Bus #3</h4>
+            Running 5 minutes late. On route #2902.<br />
+            Heading: Southeast.  Next Stop: Buckhead & Peachtree St.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-early">
             <h4 class="list-group-item-heading">Bus #4</h4>
+            Running 3 minutes early. On route #2862.<br />
+            Heading: South.  Next Stop: West Peachtree St.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-on-time">
             <h4 class="list-group-item-heading">Bus #5</h4>
+            Running on time. On route #2682.<br />
+            Heading: West.  Next Stop: Juniper and Peachtree St.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-semi-late">
             <h4 class="list-group-item-heading">Bus #6</h4>
+            Running 1 minute late. On route #2682.<br />
+            Heading: East.  Next Stop: Roswell and Piedmont.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-late">
             <h4 class="list-group-item-heading">Bus #7</h4>
+            Running 8 minutes late. On route #3001.<br />
+            Heading: Southwest.  Next Stop: Peachtree st and Piedmont.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-early">
             <h4 class="list-group-item-heading">Bus #8</h4>
+            Running 2 minutes early. On route #2938.<br />
+            Heading: North.  Next Stop: Howell mill rd and 5th.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-on-time">
             <h4 class="list-group-item-heading">Bus #9</h4>
+            Running on time. On route #1738.<br />
+            Heading: Northeast.  Next Stop: 7th and piedmont.
           </a>
-          <a href="#" class="list-group-item col-xs-12">
+          <a href="#" class="list-group-item col-xs-12 bus-late">
             <h4 class="list-group-item-heading">Bus #10</h4>
+            Running 7 minutes late. On route #1004.<br />
+            Heading: Southwest.  Next Stop: Briarcliff rd ne & N Decatur rd.
           </a>
         </div>
         <div class="panel-footer pagnator-outer">
           <ul class="pager pagnator-inner">
-            <li><a href="#">&larr; Previous</a></li>
-            <li><a href="#">Next &rarr;</a></li>
+            <li class="previous"><a href="#">&larr; Previous</a></li>
+            <li class="next"><a href="#">Next &rarr;</a></li>
           </ul>
         </div>
-        <!--<div class="panel-footer bottom-footer">
-        <ul class="pager pager-bottom">
-        <li>
-          <iframe src="http://ghbtns.com/github-btn.html?user=shefHauwanga&repo=MARTA-bus-tracker&type=watch"
-  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
-        </li>
-        <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.shefcookscode.com" data-text="A live map of Atlanta's MARTA system" data-via="Shef_Hauwanga" data-count="none">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
-        <li>
-          <script src="//platform.linkedin.com/in.js" type="text/javascript">
-            lang: en_US
-          </script>
-          <script type="IN/Share" data-url="http://www.shefcookscode.com/martaBus/list.html"></script>
-        </li>
-        </ul>
-        </div>-->
       </div>
     </div>
 
