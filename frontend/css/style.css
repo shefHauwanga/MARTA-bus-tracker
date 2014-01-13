@@ -1,7 +1,7 @@
 body {
   padding-top: 47px;
-  padding-bottom: 28px;
-  background-color: blue;
+  padding-bottom: 59px;
+  background-color: gray;
 }
 
 .scrollbox {
@@ -64,6 +64,10 @@ body {
   color: white;
 }
 
+.button-font {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .new-panel-body {
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
@@ -77,11 +81,50 @@ body {
   border: 0px solid transparent;
 }
 
+.my-navbar {
+  border: 0px solid transparent;
+}
+
+.hire-me {
+  font-family: 'Sonsie One', cursive;
+  font-size: 34px;
+}
+
+.map-button {
+  background-image: url('../../images/appbar.map.folds');
+  height: 60px;
+  width: 60px;
+}
+
+.map-button:hover {
+   background-image: url('../../images/appbar.map.folds.light');
+}
+
+#twitter-button {
+  background-image: url('../../images/appbar.social.twitter');
+  height: 60px;
+  width: 60px;
+}
+
+#twitter-button:hover {
+   background-image: url('../../images/appbar.social.twitter.light');
+}
+
+#github-button {
+  background-image: url('../../images/appbar.social.github.octocat.solid');
+  height: 60px;
+  width: 60px;
+}
+
+#github-button:hover {
+   background-image: url('../../images/appbar.social.github.octocat.solid.light');
+}
+
 @media (min-width: 768px) {
   .main-container {
-     width: 250px;
-    }
+    width: 250px;
   }
+}
  
 @media (min-width: 992px) {
   .main-container {
