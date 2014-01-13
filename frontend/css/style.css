@@ -120,6 +120,16 @@ body {
    background-image: url('../../images/appbar.social.github.octocat.solid.light');
 }
 
+#linkedin-button {
+  background-image: url('../../images/appbar.social.linkedin.variant');
+  height: 60px;
+  width: 60px;
+}
+
+#linkedin-button:hover {
+   background-image: url('../../images/appbar.social.linkedin.variant.light');
+}
+
 @media (min-width: 768px) {
   .main-container {
     width: 250px;
