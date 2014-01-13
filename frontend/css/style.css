@@ -1,6 +1,7 @@
 body {
-  padding-top: 70px;
-  padding-bottom: 70px;
+  padding-top: 47px;
+  padding-bottom: 28px;
+  background-color: blue;
 }
 
 .scrollbox {
@@ -17,6 +18,10 @@ body {
 .sheefeni-text-1 {
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
+}
+
+.format-choice {
+  padding-left: 20px;
 }
 
 .bottom-footer {
@@ -39,14 +44,53 @@ body {
   margin: 0px 0px 0px 0px;
 }
 
-.bus-semi-late {
+.btn-group-shef-wrap {
+    text-align: center;
 }
 
-.bus-late {
+.right-class {
+  float: right;
 }
 
-.bus-early {
+.bar-content-left {
+  background-color:#FF4500;
+  padding: 5px 0px 5px 0px;
+  color: white;
 }
 
-.bus-on-time {
+.bar-content-right {
+  background-color:orange;
+  padding: 5px 0px 5px 0px;
+  color: white;
+}
+
+.new-panel-body {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.top-list-item {
+  border-top: 0px;
+}
+
+.my-panel {
+  border: 0px solid transparent;
+}
+
+@media (min-width: 768px) {
+  .main-container {
+     width: 250px;
+    }
+  }
+ 
+@media (min-width: 992px) {
+  .main-container {
+    width: 470px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-container {
+    width: 770px;
+  }
 }
