@@ -97,7 +97,12 @@ body {
 }
 
 .map-button:hover {
-   background-image: url('../../images/appbar.map.folds.light');
+  background-image: url('../../images/appbar.map.folds.light');
+}
+
+.my-list-item:hover,
+.my-list-item:focus {
+  background-color: #eeeeee;
 }
 
 #twitter-button {
@@ -107,7 +112,7 @@ body {
 }
 
 #twitter-button:hover {
-   background-image: url('../../images/appbar.social.twitter.light');
+  background-image: url('../../images/appbar.social.twitter.light');
 }
 
 #github-button {
@@ -117,7 +122,7 @@ body {
 }
 
 #github-button:hover {
-   background-image: url('../../images/appbar.social.github.octocat.solid.light');
+  background-image: url('../../images/appbar.social.github.octocat.solid.light');
 }
 
 #linkedin-button {
@@ -127,7 +132,7 @@ body {
 }
 
 #linkedin-button:hover {
-   background-image: url('../../images/appbar.social.linkedin.variant.light');
+  background-image: url('../../images/appbar.social.linkedin.variant.light');
 }
 
 @media (min-width: 768px) {
