@@ -76,6 +76,17 @@ a.hire-link:hover {
    background-color: transparent;
 }
 
+
+.bus-data {
+  color: #000000;
+}
+
+.bus-data:hover {
+  text-decoration: none;
+  color: #000000;
+  background-color: transparent;
+}
+
 .my-list-item {
   padding: 35px 30px 20px 30px;
 }
