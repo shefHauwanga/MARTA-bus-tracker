@@ -45,6 +45,15 @@ body {
   margin: 0px 0px 0px 0px;
 }
 
+.link-footer {
+  padding: 0px 0px 5px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.my-footer {
+  min-height: 10px;
+}
+
 .top-list-item {
   border-top: 0px;
 }
@@ -75,7 +84,6 @@ a.hire-link:hover {
 .nav > li > a:focus {
    background-color: transparent;
 }
-
 
 .bus-data {
   color: #000000;
