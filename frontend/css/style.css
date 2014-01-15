@@ -1,36 +1,12 @@
 body {
   padding-top: 47px;
-  padding-bottom: 59px;
+  padding-bottom: 86px;
   background-color: gray;
 }
 
 .scrollbox {
   border:1px solid #ffffff;
   overflow:auto;
-}
-
-.footer-hire {
-  background: #ffffff;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
-}
-
-.sheefeni-text-1 {
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
-}
-
-.format-choice {
-  padding-left: 20px;
-}
-
-.bottom-footer {
-  background: #ffffff;
-}
-
-.pager-bottom {
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
 }
 
 .pagnator-outer {
@@ -42,10 +18,6 @@ body {
 .pagnator-inner {
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-}
-
-.btn-group-shef-wrap {
-    text-align: center;
 }
 
 .right-class {
@@ -86,8 +58,31 @@ body {
 }
 
 .hire-me {
-  font-family: 'Sonsie One', cursive;
-  font-size: 34px;
+  font-size: 38px;
+}
+a.hire-link {
+  color: #999999;
+}
+
+a.hire-link:focus,
+a.hire-link:hover {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+   background-color: transparent;
+}
+
+.my-list-item {
+  padding: 35px 30px 20px 30px;
+}
+
+.my-list-item:hover,
+.my-list-item:focus {
+  background-color: #eeeeee;
 }
 
 .map-button {
@@ -98,11 +93,7 @@ body {
 
 .map-button:hover {
   background-image: url('../../images/appbar.map.folds.light');
-}
-
-.my-list-item:hover,
-.my-list-item:focus {
-  background-color: #eeeeee;
+  background-color: transparent;
 }
 
 #twitter-button {
