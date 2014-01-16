@@ -9,6 +9,8 @@
   <body>
     <script type="text/x-handlebars" data-template-name="list">
     </script>
+    <!--Start navbar. -->
+    <!--Start header. -->
     <nav class="navbar navbar-inverse navbar-fixed-top my-navbar" role="navigation">
       <a class="navbar-brand col-xs-offset-1" href="#">AtlantaLiveMap</a>
       <div class="col-xs-offset-4 col-xs-7 input-group navbar-btn">
@@ -16,31 +18,48 @@
         <input type="text" class="form-control" placeholder="Bus Number">
       </div>
     </nav>
+    <!-- End header. -->
+    <!-- Start footer. -->
     <nav class="navbar navbar-inverse navbar-fixed-bottom my-navbar my-footer" role="navigation">
       <div class="container main-container">
-        <!--<ul class='list-inline row'>
-          <li class="hire-me col-xs-offset-3"><a class="hire-link" href="#hire">Hire me!</a></li>
+        <ul class='list-inline row link-footer'>
+          <li class="hire-me col-xs-offset-3"><a class="hire-link" data-toggle="modal" data-target="#hire-modal" href="#hire">Hire me!</a></li>
+          <!-- Start footer icons.-->
           <li><a href="#twitter"><div id="twitter-button"></div></a></li>
           <li><a href="#github"><div id="github-button"></div></a></li>
           <li><a href="#linkedin"><div id="linkedin-button"></div></a></li>
-        </ul>-->
+          <!-- End footer icons.-->
+        </ul>
         <a class="hire-link" href="http://www.shefcookscode.com/"><h5 class="text-center link-footer" href="#">ShefCooksCode.com</h5></a>
       </div>
     </nav>
+    <!-- End footer. -->
+    <!-- End navbars. -->
+    <!-- Start hire me modal. -->
+    <div class="modal fade" id="myModal">
+    </div>
+    <!-- End hire me modal. -->
+    <!-- Start list view. -->
     <div class="container main-container">
       <div class="panel panel-default row my-panel">
+        <!-- Start list header. -->
+        <!-- Start list title. -->
         <div class="col-xs-12 panel-body">
           <h1 class="text-center">MARTA Bus Tracker</h1>
           <h3 class="text-center">Bus Route Listing</h3>
         </div>
+        <!-- End list title. -->
+        <!-- Start list header clickables. -->
         <div class="panel-body row new-panel-body">
           <a href="#list"><div class="col-xs-6 text-center bar-content-left">
-            <h4 class="button-font"><span class="glyphicon glyphicon-list"></span> List</h4>
+            <h4 class="button-font"><span class="glyphicon glyphicon-list"></span>&nbsp;List</h4>
           </div></a>
           <a href="#bus"><div class="col-xs-6 text-center bar-content-right">
-            <h4 class="button-font"><span class="glyphicon glyphicon-map-marker"></span> Map</h4>
+            <h4 class="button-font"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Map</h4>
           </div></a>
         </div>
+        <!-- End list header clickables. -->
+        <!-- Start listview list. -->
         <ul class="list-group scrollbox">
           <li class="list-group-item col-xs-12 my-list-item top-list-item">
             <ul class="nav nav-pills">
@@ -203,16 +222,24 @@
             </ul>
           </li>
         </ul>
+        <!-- End listview list. -->
+        <!-- Start prev/next pagnator -->
         <div class="panel-footer pagnator-outer">
           <ul class="pager pagnator-inner">
             <li class="previous"><a href="#">&larr; Previous</a></li>
             <li class="next"><a href="#">Next &rarr;</a></li>
           </ul>
         </div>
+        <!-- End prev/next pagnator -->
       </div>
     </div>
+    <!-- End list view. -->
 
+    <!-- Start libraries. -->
     <script src="frontend/js/libs/jquery-1.10.2.min.js"></script>
+
+    <script src="frontend/bootstrap/js/bootstrap.js"></script>
+ 
     <script src="frontend/js/libs/handlebars-1.0.0.js"></script>
     <script src="frontend/js/libs/ember.js"></script>
     <script src="frontend/js/libs/ember-data.js"></script>
@@ -220,5 +247,6 @@
     <script src="frontend/js/application.js"></script>
     <script src="frontend/js/router.js"></script>
     <script src="frontend/js/models/bus.js"></script>
+    <!-- End libraries. -->
   </body>
 </html>
