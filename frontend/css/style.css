@@ -73,6 +73,25 @@ a.hire-link {
   color: #999999;
 }
 
+.submit_header {
+  background-color: orange;
+}
+
+.submit_button {
+  background-color:#FF4500;
+}
+
+a.form_submit_button {
+  color: #000000;
+} 
+
+a.form_submit_button:focus, 
+a.form_submit_button:hover {
+  text-decoration: none;
+  color: #000000;
+  background-color: transparent;
+}
+
 a.hire-link:focus,
 a.hire-link:hover {
   text-decoration: none;
