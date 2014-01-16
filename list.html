@@ -25,7 +25,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-bottom my-navbar my-footer" role="navigation">
       <div class="container main-container">
         <ul class='list-inline row link-footer'>
-          <li class="hire-me col-xs-offset-3"><a class="hire-link" data-toggle="modal" data-target="#hire-modal" href="#hire">Hire me!</a></li>
+          <li class="hire-me col-xs-offset-3"><a title='Click here to contact Sheefeni.' class="hire-link" data-toggle="modal" data-target="#hire-modal" href="#hire">Hire me!</a></li>
           <!-- Start footer icons.-->
           <li><a href="#twitter"><div title='Tweet this' id="twitter-button"></div></a></li>
           <li><a href="#github"><div title='Watch this' id="github-button"></div></a></li>
@@ -55,18 +55,21 @@
             <hr />
             <h4><span class="glyphicon glyphicon-pencil"></span>&nbsp;Tell me about your project:</h4>
             <div class="form-group">
-              <input type="email" class="form-control" id="hire-email" placeholder="Enter your email.">
+              <input title="Enter your email address." type="email" class="form-control" id="hire-email" placeholder="Enter your email.">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" id="hire-name" placeholder="Enter your name.">
+              <input title="Enter your company's name." type="text" class="form-control" id="hire-company" placeholder="Enter your company's name.">
             </div>
             <div class="form-group">
-              <textarea class="form-control" rows="3" placeholder="Enter your project's description."></textarea>
+              <input title="Enter your first and last name." type="text" class="form-control" id="hire-name" placeholder="Enter your name.">
+            </div>
+            <div class="form-group">
+              <textarea title="Please give me a description of your project."class="form-control" rows="3" placeholder="Enter your project's description."></textarea>
             </div>
           </div><!-- modal-body. -->
           <!-- End modal-body. -->
           <!-- Start modal footer. -->
-          <a class="form_submit_button" href="#"><div id="modal-submit" class="modal-footer submit_button">
+          <a class="form_submit_button" href="#"><div title="Click to send!" id="modal-submit" class="modal-footer submit_button">
             <h3 class="text-center"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Contact Sheefeni</h3>
           </div></a><!-- modal-footer. -->
           <!-- End modal footer. -->
