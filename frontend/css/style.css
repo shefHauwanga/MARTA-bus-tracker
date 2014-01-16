@@ -124,13 +124,13 @@ a.hire-link:hover {
 }
 
 .map-button {
-  background-image: url('../../images/appbar.map.folds');
-  height: 60px;
-  width: 60px;
+  background-image: url('../../images/map-marker-32.png');
+  height: 32px;
+  width: 32px;
 }
 
 .map-button:hover {
-  background-image: url('../../images/appbar.map.folds.light');
+  background-image: url('../../images/map-marker-32orange.png');
   background-color: transparent;
 }
 
