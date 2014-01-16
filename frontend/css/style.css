@@ -135,33 +135,33 @@ a.hire-link:hover {
 }
 
 #twitter-button {
-  background-image: url('../../images/appbar.social.twitter');
-  height: 60px;
-  width: 60px;
+  background-image: url('../../images/twitter-32.png');
+  height: 32px;
+  width: 32px;
 }
 
 #twitter-button:hover {
-  background-image: url('../../images/appbar.social.twitter.light');
+  background-image: url('../../images/twitter-32white.png');
 }
 
 #github-button {
-  background-image: url('../../images/appbar.social.github.octocat.solid');
-  height: 60px;
-  width: 60px;
+  background-image: url('../../images/github-10-32.png');
+  height: 32px;
+  width: 32px;
 }
 
 #github-button:hover {
-  background-image: url('../../images/appbar.social.github.octocat.solid.light');
+  background-image: url('../../images/github-10-32white.png');
 }
 
 #linkedin-button {
-  background-image: url('../../images/appbar.social.linkedin.variant');
-  height: 60px;
-  width: 60px;
+  background-image: url('../../images/linkedin-3-32.png');
+  height: 32px;
+  width: 32px;
 }
 
 #linkedin-button:hover {
-  background-image: url('../../images/appbar.social.linkedin.variant.light');
+  background-image: url('../../images/linkedin-3-32white.png');
 }
 
 @media (min-width: 768px) {
