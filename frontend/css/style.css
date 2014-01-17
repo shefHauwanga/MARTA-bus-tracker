@@ -123,6 +123,12 @@ a.hire-link:hover {
   background-color: #eeeeee;
 }
 
+.my-stop-list {
+  padding: 0px 0px 0px 0px;
+  overflow: auto;
+  height: 800px;
+}
+
 .map-button {
   background-image: url('../../images/map-marker-32.png');
   height: 32px;
@@ -179,5 +185,23 @@ a.hire-link:hover {
 @media (min-width: 1200px) {
   .main-container {
     width: 770px;
+  }
+}
+
+@media (min-width: 768px) {
+  .stop-container {
+    width: 450px;
+  }
+}
+ 
+@media (min-width: 992px) {
+  .stop-container {
+    width: 670px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .stop-container {
+    width: 970px;
   }
 }
