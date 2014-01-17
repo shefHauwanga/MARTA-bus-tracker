@@ -141,7 +141,7 @@ a.hire-link:hover {
 }
 
 #twitter-button:hover {
-  background-image: url('../../images/twitter-32white.png');
+  background-image: url('../../images/twitter-32twitter-blue.png');
 }
 
 #github-button {
@@ -161,7 +161,7 @@ a.hire-link:hover {
 }
 
 #linkedin-button:hover {
-  background-image: url('../../images/linkedin-3-32white.png');
+  background-image: url('../../images/linkedin-3-32linkedin-blue.png');
 }
 
 @media (min-width: 768px) {
