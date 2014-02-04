@@ -109,24 +109,25 @@
         <!-- Start listview list. -->
         <ul class="list-group scrollbox">
           {{#each itemController="bus"}}
-            <li class="list-group-item col-xs-12 my-list-item">
+            <li class="list-group-item col-xs-12 my-list-item {{position}}">
               <ul class="nav nav-pills">
                 <li>
                   <ul class="nav nav-pills nav-stacked">
                     <a class="bus-data" href="#"><li><h4 class="list-group-item-heading">Bus # {{bus}}</h4></li>
-                  <li>
-                    {{#if isTimely}}
-                      <span class="timely">
-                        Running on time.
-                      </span> 
-                    {{else}}
-                      <span {{bind-attr class="adherenceColor"}}>
-                        Running {{absoluteAdherence}} {{inflection}} {{lateOrEarly}}.
-                      </span>
-                    {{/if}}
-                    On route: #{{route}}.
-                  </li>
-                  <li>Heading: {{direction}}.  Next Stop: {{timePoint}}.</li></a>
+                      <li>
+                        {{#if isTimely}}
+                          <span class="timely">
+                            Running on time.
+                          </span> 
+                        {{else}}
+                          <span {{bind-attr class="adherenceColor"}}>
+                            Running {{absoluteAdherence}} {{inflection}} {{lateOrEarly}}.
+                          </span>
+                        {{/if}}
+                        On route: #{{route}}.
+                      </li>
+                      <li>Heading: {{direction}}.  Next Stop: {{timePoint}}.</li>
+                    </a>
                   </ul>
                 </li>
                 <ul class="nav nav-pills right-class">
@@ -178,6 +179,10 @@
     <!-- Start of controllers. -->
     <script src="frontend/js/controllers/bus_controller.js"></script>
     <!-- End of controllers. -->
+
+    <!-- Start of handlebar helpers -->
+    <script src="frontend/js/handlebar_helpers/position.js"></script>
+    <!-- End of handlebar helpers -->
       
     <script type="text/javascript">
       function initialize() {
