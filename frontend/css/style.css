@@ -4,6 +4,22 @@ body {
   background-color: gray;
 }
 
+.veryLate {
+  color: red;
+}
+
+.late {
+  color: yellow;
+}
+
+.early {
+  color: blue;
+}
+
+.timely {
+  color: green;
+}
+
 .scrollbox {
   border:1px solid #ffffff;
   overflow:auto;
@@ -171,37 +187,37 @@ a.hire-link:hover {
 }
 
 @media (min-width: 768px) {
-  .main-container {
+  .stop-container {
     width: 250px;
   }
 }
  
 @media (min-width: 992px) {
-  .main-container {
+  .stop-container {
     width: 470px;
   }
 }
 
 @media (min-width: 1200px) {
-  .main-container {
+  .stop-container {
     width: 770px;
   }
 }
 
 @media (min-width: 768px) {
-  .stop-container {
+  .main-container {
     width: 450px;
   }
 }
  
 @media (min-width: 992px) {
-  .stop-container {
+  .main-container {
     width: 670px;
   }
 }
 
 @media (min-width: 1200px) {
-  .stop-container {
+  .main-container {
     width: 970px;
   }
 }
