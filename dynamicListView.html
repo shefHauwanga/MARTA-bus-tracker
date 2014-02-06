@@ -11,7 +11,6 @@
   </head>
   <body>
     <!-- Start template.-->
-    <script type="text/x-handlebars" data-template-name="buses">
     <!--Start navbar. -->
     <!--Start header. -->
     <nav class="navbar navbar-inverse navbar-fixed-top my-navbar" role="navigation">
@@ -87,6 +86,7 @@
     </div><!-- modal. -->
     <!-- End hire me modal. -->
     <!-- Start list view. -->
+    <script type="text/x-handlebars" data-template-name="buses">
     <div class="container main-container">
       <div class="panel panel-default row my-panel">
         <!-- Start list header. -->
@@ -108,12 +108,12 @@
         <!-- End list header clickables. -->
         <!-- Start listview list. -->
         <ul class="list-group scrollbox">
-          {{#each itemController="bus"}}
+          {{#each paginatedContent itemController="bus"}}
             <li class="list-group-item col-xs-12 my-list-item {{position}}">
               <ul class="nav nav-pills">
                 <li>
                   <ul class="nav nav-pills nav-stacked">
-                    <a class="bus-data" href="#"><li><h4 class="list-group-item-heading">Bus # {{bus}}</h4></li>
+                    <a class="bus-data" href="#"><li><h4 class="list-group-item-heading">Bus #{{bus}}</h4></li>
                       <li>
                         {{#if isTimely}}
                           <span class="timely">
@@ -143,20 +143,28 @@
         <!-- Start prev/next pagnator -->
         <div class="panel-footer pagnator-outer">
           <ul class="pager pagnator-inner">
-            <li class="previous"><a href="#">&larr; Previous</a></li>
-            <li class="next"><a href="#">Next &rarr;</a></li>
+            {{#if prevPage}}
+              <li class="previous"><a href="#" {{action "selectPage" prevPage}}>&larr; Previous</a></li>
+            {{else}}
+              <li class="previous disabled"><a href="#">&larr; Previous</a></li>
+            {{/if}}
+            {{#if nextPage}}
+              <li class="next"><a href="#" {{action "selectPage" nextPage}}>Next &rarr;</a></li>
+            {{else}}
+              <li class="next disabled"><a href="#">Next &rarr;</a></li>
+            {{/if}}
           </ul>
         </div>
         <!-- End prev/next pagnator -->
       </div> <!-- panel -->
     </div> <!-- container -->
-    <!-- End stopListView. -->
     </script><!-- End Template -->
+    <!-- End stopListView. -->
     <!-- Start libraries. -->
 
     <!-- Start of Google maps JavaScript API -->
-    <script type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0GhZ9RY33odsucRxAaWCRmBxrc0bxd7E&sensor=false"></script>
+    <!--<script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0GhZ9RY33odsucRxAaWCRmBxrc0bxd7E&sensor=false"></script> -->
     <!-- End of Google maps JavaScript API -->
 
     <script src="frontend/js/libs/jquery-1.10.2.min.js"></script>
@@ -176,7 +184,11 @@
     <script src="frontend/js/models/bus.js"></script>
     <!-- End of models. -->
 
+    <!-- Start of Mixins. -->
+    <!-- End of Mixins. -->
+
     <!-- Start of controllers. -->
+    <script src="frontend/js/controllers/buses_controller.js"></script>
     <script src="frontend/js/controllers/bus_controller.js"></script>
     <!-- End of controllers. -->
 
@@ -185,7 +197,7 @@
     <!-- End of handlebar helpers -->
       
     <script type="text/javascript">
-      function initialize() {
+      /*function initialize() {
         var mapOptions = {
           panControl: false,
           mapTypeControl: false,
@@ -193,13 +205,13 @@
           /*zoomControlOptions: {
             position: google.maps.ControlPosition.LEFT_CENTER
           },*/
-          center: new google.maps.LatLng(33.775723, -84.388733),
+          /*center: new google.maps.LatLng(33.775723, -84.388733),
           zoom: 12
         };
         var map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
       }
-      google.maps.event.addDomListener(window, 'load', initialize);
+      google.maps.event.addDomListener(window, 'load', initialize);*/
     </script>
 
     <!-- End libraries. -->

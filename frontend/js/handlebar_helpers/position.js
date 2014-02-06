@@ -1,8 +1,7 @@
-var positionCounter = 1;
+var positionCounter = 0;
 Handlebars.registerHelper('position', function() {
   
-  //if(positionCounter++ % 10 === 0 )
-  if(positionCounter++ === 1)
+  if(positionCounter++ % 10 === 0 )
     return 'top-list-item';
   else
     return '';
