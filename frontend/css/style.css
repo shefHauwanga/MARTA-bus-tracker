@@ -22,7 +22,8 @@ body {
 
 .scrollbox {
   border:1px solid #ffffff;
-  overflow:auto;
+  overflow:hidden;
+  /*overflow:auto;*/
 }
 
 .pagnator-outer {

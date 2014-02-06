@@ -1,4 +1,4 @@
-List.Bus = DS.Model.extend({
+Buses.Bus = DS.Model.extend({
   route: DS.attr('string'),
   bus: DS.attr('string'),
   lat: DS.attr('string'),
@@ -11,7 +11,7 @@ List.Bus = DS.Model.extend({
   title: DS.attr('string')
 });
 
-List.Bus.FIXTURES = [
+Buses.Bus.FIXTURES = [
   {
     id: 1,
     adherence:"-5",
