@@ -4,9 +4,26 @@ body {
   background-color: gray;
 }
 
+.veryLate {
+  color: red;
+}
+
+.late {
+  color: yellow;
+}
+
+.early {
+  color: blue;
+}
+
+.timely {
+  color: green;
+}
+
 .scrollbox {
   border:1px solid #ffffff;
-  overflow:auto;
+  overflow:hidden;
+  /*overflow:auto;*/
 }
 
 .pagnator-outer {
