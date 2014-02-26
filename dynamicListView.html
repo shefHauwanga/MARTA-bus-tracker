@@ -11,6 +11,88 @@
   </head>
   <body>
     <!-- Start template.-->
+    <!-- start list templates -->
+    <script type="text/x-handlebars" data-template-name="list/buses"><!-- Start list view. -->
+    <div class="container main-container">
+      <div class="panel panel-default row my-panel">
+        <!-- Start list header. -->
+        <!-- Start list title. -->
+        <div class="col-xs-12 panel-body">
+          <h1 class="text-center">MARTA Bus Tracker</h1>
+          <h3 class="text-center">Bus Route Listing</h3>
+        </div>
+        <!-- End list title. -->
+        <!-- Start list header clickables. -->
+        <div class="panel-body row new-panel-body">
+          <a href="#list"><div title='See a list of all buses.' class="col-xs-6 text-center bar-content-left">
+            <h4 class="button-font"><span class="glyphicon glyphicon-th-list"></span>&nbsp;List</h4>
+          </div></a>
+          <a href="#bus"><div title='View a map of all buses.' class="col-xs-6 text-center bar-content-right">
+            <h4 class="button-font"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Map</h4>
+          </div></a>
+        </div>
+        <!-- End list header clickables. -->
+        <!-- Start listview list. -->
+        <ul class="list-group scrollbox">
+          {{#each paginatedContent itemController="bus"}}
+            <li class="list-group-item col-xs-12 my-list-item {{position}}">
+              <ul class="nav nav-pills">
+                <li>
+                  <ul class="nav nav-pills nav-stacked">
+                    <li><h4 class="list-group-item-heading">Bus #{{bus}}</h4></li>
+                      <li>
+                        {{#if isTimely}}
+                          <span class="timely">
+                            Running on time.
+                          </span> 
+                        {{else}}
+                          <span {{bind-attr class="adherenceColor"}}>
+                            Running {{absoluteAdherence}} {{inflection}} {{lateOrEarly}}.
+                          </span>
+                        {{/if}}
+                        On route: #{{route}}.
+                      </li>
+                      <li>Heading: {{direction}}.  Next Stop: {{timePoint}}.</li>
+                  </ul>
+                </li>
+                <ul class="nav nav-pills right-class">
+                  <li>
+                    {{#link-to 'trip.bus' trip bus class="bus-data"}}
+                      <div class="map-button"></div>
+                    {{/link-to}}
+                  </li>
+                </ul>
+              </ul>
+            </li>
+          {{/each}}
+        </ul>
+        <!-- End listview list. -->
+        <!-- Start prev/next pagnator -->
+        <div class="panel-footer pagnator-outer">
+          <ul class="pager pagnator-inner">
+            {{#if prevPage}}
+              <li class="previous"><a href="#" {{action "selectPage" prevPage}}>&larr; Previous</a></li>
+            {{else}}
+              <li class="previous disabled"><a href="#">&larr; Previous</a></li>
+            {{/if}}
+            {{#if nextPage}}
+              <li class="next"><a href="#" {{action "selectPage" nextPage}}>Next &rarr;</a></li>
+            {{else}}
+              <li class="next disabled"><a href="#">Next &rarr;</a></li>
+            {{/if}}
+          </ul>
+        </div>
+        <!-- End prev/next pagnator -->
+      </div> <!-- panel -->
+    </div> <!-- container -->
+    </script><!-- End Template -->
+    <!-- end list templates -->
+
+    <!-- Start stop list template. -->
+
+    <!-- End stop list template -->
+
+    <!-- End templates. -->
     <!--Start navbar. -->
     <!--Start header. -->
     <nav class="navbar navbar-inverse navbar-fixed-top my-navbar" role="navigation">
@@ -85,81 +167,13 @@
       </div><!-- modal-dialog. -->
     </div><!-- modal. -->
     <!-- End hire me modal. -->
-    <!-- Start list view. -->
-    <script type="text/x-handlebars" data-template-name="buses">
-    <div class="container main-container">
-      <div class="panel panel-default row my-panel">
-        <!-- Start list header. -->
-        <!-- Start list title. -->
-        <div class="col-xs-12 panel-body">
-          <h1 class="text-center">MARTA Bus Tracker</h1>
-          <h3 class="text-center">Bus Route Listing</h3>
-        </div>
-        <!-- End list title. -->
-        <!-- Start list header clickables. -->
-        <div class="panel-body row new-panel-body">
-          <a href="#list"><div title='See a list of all buses.' class="col-xs-6 text-center bar-content-left">
-            <h4 class="button-font"><span class="glyphicon glyphicon-th-list"></span>&nbsp;List</h4>
-          </div></a>
-          <a href="#bus"><div title='View a map of all buses.' class="col-xs-6 text-center bar-content-right">
-            <h4 class="button-font"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Map</h4>
-          </div></a>
-        </div>
-        <!-- End list header clickables. -->
-        <!-- Start listview list. -->
-        <ul class="list-group scrollbox">
-          {{#each paginatedContent itemController="bus"}}
-            <li class="list-group-item col-xs-12 my-list-item {{position}}">
-              <ul class="nav nav-pills">
-                <li>
-                  <ul class="nav nav-pills nav-stacked">
-                    <a class="bus-data" href="#"><li><h4 class="list-group-item-heading">Bus #{{bus}}</h4></li>
-                      <li>
-                        {{#if isTimely}}
-                          <span class="timely">
-                            Running on time.
-                          </span> 
-                        {{else}}
-                          <span {{bind-attr class="adherenceColor"}}>
-                            Running {{absoluteAdherence}} {{inflection}} {{lateOrEarly}}.
-                          </span>
-                        {{/if}}
-                        On route: #{{route}}.
-                      </li>
-                      <li>Heading: {{direction}}.  Next Stop: {{timePoint}}.</li>
-                    </a>
-                  </ul>
-                </li>
-                <ul class="nav nav-pills right-class">
-                  <li>
-                    <a href="#map"><div class="map-button"></div></a>
-                  </li>
-                </ul>
-              </ul>
-            </li>
-          {{/each}}
-        </ul>
-        <!-- End listview list. -->
-        <!-- Start prev/next pagnator -->
-        <div class="panel-footer pagnator-outer">
-          <ul class="pager pagnator-inner">
-            {{#if prevPage}}
-              <li class="previous"><a href="#" {{action "selectPage" prevPage}}>&larr; Previous</a></li>
-            {{else}}
-              <li class="previous disabled"><a href="#">&larr; Previous</a></li>
-            {{/if}}
-            {{#if nextPage}}
-              <li class="next"><a href="#" {{action "selectPage" nextPage}}>Next &rarr;</a></li>
-            {{else}}
-              <li class="next disabled"><a href="#">Next &rarr;</a></li>
-            {{/if}}
-          </ul>
-        </div>
-        <!-- End prev/next pagnator -->
-      </div> <!-- panel -->
-    </div> <!-- container -->
-    </script><!-- End Template -->
-    <!-- End stopListView. -->
+
+    <!-- Start main template. -->
+    <script type="text/x-handlebars" data-template-name="list">
+      {{outlet}}
+    </script>
+    <!-- End main template. -->
+   
     <!-- Start libraries. -->
 
     <!-- Start of Google maps JavaScript API -->
