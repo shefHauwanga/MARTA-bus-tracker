@@ -1,4 +1,4 @@
-var models = require('../models/model.js');
+var models = require('../model/model.js');
 
 var RouteController = {};
 var helperNameSpace = {};
@@ -20,23 +20,26 @@ helperNameSpace.getStopData = function (current_trip_id){
       return {
         lat: stop.dataValues.lat,
         lon: stop.dataValues.lon
-      }
+      };
     });
   }
 
   models.StopTime.findAll({where: {trip_id: current_trip_id}}).success(function (stopTimes){
     stopTimes.forEach(function (stopTime){
-      current_stop_data = getStopDatum(stopTime.dataValues.stop_id);
-      current_stop_data.arrival_time = stopTime.dataValues.arrival_time;
-      current_stop_data.departure_time = stopTime.dataValues.departure_time;
-      stopTimeValues.push(current_stop_data);
+      if(typeof stopTime.dataValues === 'undefined'){
+        current_stop_data = getStopDatum(stopTime.dataValues.stop_id);
+        current_stop_data.arrival_time = stopTime.dataValues.arrival_time;
+        current_stop_data.departure_time = stopTime.dataValues.departure_time;
+
+        stopTimeValues.push(current_stop_data);
+      }
     });
   });
 
   return stopTimeValues;
 }
 
-helperNameSpace.getStopData = function (current_trip_id){
+helperNameSpace.getShapeData = function (shape_id){
   var shapeValues = [];
   models.Shape.findAll({where: {id: shape_id}}).success(function (shapePoints){
     shapePoints.forEach(function(shapePoint) {
@@ -63,4 +66,4 @@ RouteController.getTrip = function (current_trip_id){
   return values;
 };
 
-module.exports.Route_controller = Route_controller;
+module.exports.RouteController = RouteController;
