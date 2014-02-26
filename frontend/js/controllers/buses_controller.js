@@ -1,4 +1,4 @@
-Buses.BusesController = Ember.ArrayController.extend({
+Buses.ListBusesController = Ember.ArrayController.extend({
   page: 1,
   per_page: 10,
   totalPages: (function() {
